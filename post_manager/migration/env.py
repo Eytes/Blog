@@ -26,6 +26,7 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 
 from app.db.models.post import Post
+from app.db.models.author import Author
 
 target_metadata = [database.Base.metadata]
 

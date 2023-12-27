@@ -104,3 +104,9 @@ CREATE DATABASE test;
 ```commandline
 DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql alembic upgrade head
 ```
+
+### Пользуйтесь командой миграции:
+
+```commandline
+DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql alembic revision --autogenerate -m “Оставляйте осмысленное описание изменений”
+```
