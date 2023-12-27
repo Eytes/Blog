@@ -2,11 +2,8 @@
 
 ## Технический стек
 
-- ЯП - Python `3.9` или `3.10` (на выбор)
-- Стек технологий для реализации бэкенд (на выбор):  
-    -[ ] `Django` + `Django Rest Framework`  
-    -[ ] `Flask` + `SQLAlchemy`  
-    -[x] `FastAPI` + `SQLAlchemy`  
+- ЯП - Python `3.10`
+- Стек технологий для реализации бэкенд: `FastAPI` + `SQLAlchemy`  
 - База данных - `PostgreSQL`
 - Развертывание проекта с помощью `Docker` (Docker-Compose)
 
