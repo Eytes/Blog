@@ -2,10 +2,7 @@ import uuid
 from sqlalchemy import (
     Column,
     String,
-    Integer,
     Uuid,
-    TIMESTAMP,
-    func,
 )
 from sqlalchemy.orm import relationship
 
