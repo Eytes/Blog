@@ -17,3 +17,4 @@ class Author(Base):
     email = Column(String, unique=True, nullable=False)
 
     posts = relationship("Post", back_populates='author')
+    comments = relationship("Comment", back_populates='author')
