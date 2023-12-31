@@ -73,12 +73,14 @@
 - использование сериализаторов/десериализаторов
 - использование миграций
 
+---
+
 # Инструкции для тестирования локально
 
 ### :desktop_computer: Поднимите локальную версию базы данных
 
 ```commandline
-DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql docker-compose -f local-dev-database.yml up -d
+DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql DB_CLIENT=asyncpg docker-compose -f local-dev-database.yml up -d
 ```
 
 ### :desktop_computer: Для локальных тестов понадобится отдельная база данных, потому что фикстуры тестов удаляют все данные из базы для чистоты тестов.
@@ -102,11 +104,17 @@ CREATE DATABASE test;
 ### :desktop_computer: Настройте структуру базы
 
 ```commandline
-DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql alembic upgrade head
+DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql DB_CLIENT=asyncpg alembic upgrade head
 ```
 
 ### Пользуйтесь командой миграции:
 
 ```commandline
-DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql alembic revision --autogenerate -m “Оставляйте осмысленное описание изменений”
+DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql DB_CLIENT=asyncpg alembic revision --autogenerate -m "Оставляйте осмысленное описание изменений"
 ```
+
+---
+
+### Настройка линтера
+
+Все настройки линтера находятся в файле .flake8
