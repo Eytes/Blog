@@ -1,5 +1,7 @@
 name: Post manager CI
 run-name: ${{ github.event_name }} to ${{ github.ref_name }} by @${{ github.actor }}
+env:
+  LINTER_SKIPPED: true
 on:
   push:
     branches:
@@ -17,7 +19,7 @@ jobs:
   testing:
     name: Testing
     needs: [ lint ]
-    if: ${{ success() || CI_JOB_SKIPPED }}
+    if: ${{ success() || skipped() }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
