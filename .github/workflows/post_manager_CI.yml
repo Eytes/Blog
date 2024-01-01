@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - post_manager**
+      - dev
   pull_request:
     branches:
       - post_manager**
+      - dev
 jobs:
   lint:
     if: ${{ github.event_name == 'push' }}
