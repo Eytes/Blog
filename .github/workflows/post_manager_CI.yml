@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - post_manager**
+      - dev
   pull_request:
     branches:
       - post_manager**
+      - dev
 jobs:
   lint:
     if: ${{ github.event_name == 'push' }}
@@ -15,7 +17,7 @@ jobs:
   testing:
     name: Testing
     needs: [ lint ]
-    if: always()
+    if: ${{ success() || CI_JOB_SKIPPED }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
