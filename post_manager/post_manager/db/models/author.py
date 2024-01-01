@@ -6,7 +6,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 
-from app.db.models.database import Base
+from post_manager.db.models.database import Base
 
 
 class Author(Base):
