@@ -28,4 +28,4 @@ class Comment(Base):
         comment='дата последнего редактирования'
     )
     author = relationship("Author", backref='comments')
-    posts = relationship("Post", backref='comments')
+    post = relationship("Post", backref='comments')
