@@ -15,7 +15,7 @@ jobs:
   testing:
     name: Testing
     needs: [ lint ]
-    if: always()
+    if: ${{ success() || CI_JOB_SKIPPED }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
