@@ -80,7 +80,7 @@
 ### :desktop_computer: Поднимите локальную версию базы данных
 
 ```commandline
-DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql DB_CLIENT=asyncpg docker-compose -f local-dev-database.yml up -d
+DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql DB_CLIENT=asyncpg docker-compose -f docker-compose-local-dev-database.yml up -d
 ```
 
 ### :desktop_computer: Для локальных тестов понадобится отдельная база данных, потому что фикстуры тестов удаляют все данные из базы для чистоты тестов.
