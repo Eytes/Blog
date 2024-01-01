@@ -19,7 +19,7 @@ jobs:
   testing:
     name: Testing
     needs: [ lint ]
-    if: ${{ always() && !failure() && !cancelled() }}
+    if: ${{ !failure() && !cancelled() && always() }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
