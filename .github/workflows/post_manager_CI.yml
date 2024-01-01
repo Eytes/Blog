@@ -19,7 +19,7 @@ jobs:
   testing:
     name: Testing
     needs: [ lint ]
-    if: ${{ (contains(['success', 'skipped'], needs.lint.result)) }}
+    if: ${{ (contains(fromJSON('["success", "skipped"]'), needs.lint.result)) }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
