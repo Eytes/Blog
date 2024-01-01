@@ -1,5 +1,6 @@
 [flake8]
 exclude =
-    docs
-    .git
+    .git*
+    *docker*
+    Dockerfile
     migration
