@@ -10,8 +10,13 @@ from pydantic import (
 )
 
 
-class CreateAuthor(BaseModel):
+class Author(BaseModel):
     id: UUID
+    name: Annotated[str, MinLen(2), MaxLen(20)]
+    email: EmailStr
+
+
+class CreateAuthor(BaseModel):
     name: Annotated[str, MinLen(2), MaxLen(20)]
     email: EmailStr
 
