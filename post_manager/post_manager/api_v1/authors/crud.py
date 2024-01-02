@@ -27,6 +27,4 @@ async def create(session: AsyncSession, author: AuthorCreate) -> Author:
 
 async def update(session: AsyncSession, author_id: UUID, new_author_data: AuthorUpdate):
     """Обновление данных об авторе"""
-    author = await get_by_id(session, author_id)
-    author.email = new_author_data.email
-    author.name - new_author_data.name
+    pass
