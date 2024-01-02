@@ -3,9 +3,6 @@ from uuid import (
     uuid4,
 )
 
-from sqlalchemy import (
-    text,
-)
 from sqlalchemy.orm import (
     DeclarativeBase,
     declared_attr,
@@ -24,5 +21,5 @@ class Base(DeclarativeBase):
     id: Mapped[UUID] = mapped_column(
         primary_key=True,
         nullable=False,
-        default=text(f"{uuid4()}"),
+        default=uuid4,
     )
