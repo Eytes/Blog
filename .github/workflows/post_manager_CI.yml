@@ -1,12 +1,16 @@
 name: Post manager CI
 run-name: ${{ github.event_name }} to ${{ github.ref_name }} by @${{ github.actor }}
+env:
+  LINTER_SKIPPED: true
 on:
   push:
     branches:
       - post_manager**
+      - dev
   pull_request:
     branches:
       - post_manager**
+      - dev
 jobs:
   lint:
     if: ${{ github.event_name == 'push' }}
@@ -15,7 +19,7 @@ jobs:
   testing:
     name: Testing
     needs: [ lint ]
-    if: always()
+    if: ${{ !failure() && !cancelled() && always() }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -43,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd post_manager
-          poetry install --no-interaction --no-root --no-directory --with test
+          poetry install --no-interaction --no-root --no-directory --with dev
 
       - name: Run tests
         run: |
