@@ -1,42 +1,85 @@
-from uuid import UUID
-
-from fastapi import APIRouter
+from fastapi import (
+    APIRouter,
+    Depends,
+    status,
+)
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors import crud
+from post_manager.api_v1.authors.dependencies import get_author_by_id
 from post_manager.api_v1.authors.schemas import (
     AuthorCreate,
-    AuthorUpdate,
     Author,
+    AuthorUpdate,
+    AuthorUpdatePartial,
 )
+from post_manager.core.models import db_helper
 
-router = APIRouter(
-    prefix="/authors",
-    tags=["Authors"],
+router = APIRouter(tags=["Authors"])
+
+
+@router.post(
+    "/create/",
+    response_model=Author,
+    status_code=status.HTTP_201_CREATED,
 )
-
-
-@router.post("/create")
-def create(new_author: AuthorCreate):
+async def create(
+    new_author: AuthorCreate,
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
     """Создание автора"""
-    # TODO: отправить запрос в БД на создание
-    # TODO: обработать ответ от БД
-    # TODO: выдать результат
-    pass
+    return await crud.create(session=session, author=new_author)
 
 
-@router.put("/update")
-def update(new_author_data: AuthorUpdate):
-    """Обновление данных автора"""
-    # TODO: отправить запрос в БД на обновление
-    # TODO: обработать ответ от БД
-    # TODO: выдать результат
-    pass
-
-
-@router.get("/{author_id}")
-async def get_by_id(session, author_id: UUID) -> Author:
-    """Получение автора по id"""
-    return await crud.get_by_id(
+@router.put("/update/{author_id}/")
+async def update(
+    author_update: AuthorUpdate,
+    author: Author = Depends(get_author_by_id),
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    """Обновление всех данных автора"""
+    return await crud.update(
         session=session,
-        author_id=author_id,
+        author=author,
+        author_update=author_update,
     )
+
+
+@router.patch("/update/{author_id}/")
+async def update(
+    author_update: AuthorUpdatePartial,
+    author: Author = Depends(get_author_by_id),
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    """Обновление всех данных автора"""
+    return await crud.update(
+        session=session,
+        author=author,
+        author_update=author_update,
+        partial=True,
+    )
+
+
+@router.get("/{author_id}/", response_model=Author)
+async def get_by_id(author: Author = Depends(get_author_by_id)):
+    """Получение автора по id"""
+    return author
+
+
+@router.get("/", response_model=list[Author])
+async def get(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+    """Получение всех авторов"""
+    # TODO: добавить offset (каждые 10 пользователей, например)
+    return await crud.get(session)
+
+
+@router.delete(
+    "/{author_id}/",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def delete(
+    author: Author = Depends(get_author_by_id),
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+) -> None:
+    """Удаление автора"""
+    await crud.delete(session=session, author=author)
