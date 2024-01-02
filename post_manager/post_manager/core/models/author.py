@@ -1,5 +1,4 @@
 from sqlalchemy.orm import (
-    relationship,
     Mapped,
     mapped_column,
 )
@@ -13,9 +12,9 @@ class Author(Base):
         unique=True,
     )
     email: Mapped[str] = mapped_column(
-        unique=True,
         nullable=False,
+        unique=True,
     )
 
-    posts: Mapped["Post"] = relationship(back_populates="author")  # noqa: F821
-    comments: Mapped["Comment"] = relationship(back_populates="author")  # noqa: F821
+    # posts: Mapped["Post"] = relationship(back_populates="author")  # noqa: F821
+    # comments: Mapped["Comment"] = relationship(back_populates="author")  # noqa: F821

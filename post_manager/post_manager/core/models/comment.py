@@ -6,7 +6,6 @@ from sqlalchemy import (
     ForeignKey,
 )
 from sqlalchemy.orm import (
-    relationship,
     Mapped,
     mapped_column,
 )
@@ -35,5 +34,5 @@ class Comment(Base):
         comment="дата последнего редактирования",
     )
 
-    author: Mapped["Author"] = relationship(backref="comments")  # noqa: F821
-    post: Mapped["Post"] = relationship(backref="comments")  # noqa: F821
+    # author: Mapped["Author"] = relationship(backref="comments")  # noqa: F821
+    # post: Mapped["Post"] = relationship(backref="comments")  # noqa: F821
