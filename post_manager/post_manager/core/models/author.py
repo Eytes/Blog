@@ -17,5 +17,5 @@ class Author(Base):
         nullable=False,
     )
 
-    posts: Mapped["Post"] = relationship(back_populates="author")
-    comments: Mapped["Comment"] = relationship(back_populates="author")
+    posts: Mapped["Post"] = relationship(back_populates="author")  # noqa: F821
+    comments: Mapped["Comment"] = relationship(back_populates="author")  # noqa: F821

@@ -35,5 +35,5 @@ class Comment(Base):
         comment="дата последнего редактирования",
     )
 
-    author: Mapped["Author"] = relationship(backref="comments")
-    post: Mapped["Post"] = relationship(backref="comments")
+    author: Mapped["Author"] = relationship(backref="comments")  # noqa: F821
+    post: Mapped["Post"] = relationship(backref="comments")  # noqa: F821
