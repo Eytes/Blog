@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd post_manager
-          poetry install --no-interaction --no-root --no-directory --with test
+          poetry install --no-interaction --no-root --no-directory --with dev
 
       - name: Run tests
         run: |
