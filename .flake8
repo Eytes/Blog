@@ -1,0 +1,6 @@
+[flake8]
+exclude =
+    .git*
+    *docker*
+    Dockerfile
+    migration
