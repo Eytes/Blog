@@ -8,6 +8,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
+    relationship,
 )
 
 from post_manager.core.models.base import Base
@@ -23,16 +24,18 @@ class Comment(Base):
     )
     content: Mapped[str] = mapped_column(nullable=False)
     creation_date: Mapped[datetime.datetime] = mapped_column(
+        default=func.now(),
         server_default=func.now(),
         nullable=False,
         comment="дата создания",
     )
     edit_date: Mapped[datetime.datetime] = mapped_column(
+        default=func.now(),
         server_default=func.now(),
         onupdate=func.now(),
         nullable=False,
         comment="дата последнего редактирования",
     )
 
-    # author: Mapped["Author"] = relationship(backref="comments")  # noqa: F821
-    # post: Mapped["Post"] = relationship(backref="comments")  # noqa: F821
+    author: Mapped["Author"] = relationship(back_populates="comments")  # noqa: F821
+    post: Mapped["Post"] = relationship(back_populates="comments")  # noqa: F821

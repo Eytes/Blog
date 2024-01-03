@@ -8,6 +8,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
+    relationship,
 )
 
 from post_manager.core.models.base import Base
@@ -45,5 +46,9 @@ class Post(Base):
         comment="дата последнего редактирования",
     )
 
-    # author: Mapped["Author"] = relationship(backref="posts")  # noqa: F821
-    # comments: Mapped["Comment"] = relationship(back_populates="post")  # noqa: F821
+    author: Mapped["Author"] = relationship(back_populates="posts")  # noqa: F821
+    comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
+        back_populates="post"
+    )
+    topic: Mapped["Topic"] = relationship(back_populates="posts")  # noqa: F821
+    likes: Mapped[list["Like"]] = relationship(back_populates="post")  # noqa: F821
