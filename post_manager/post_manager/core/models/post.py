@@ -20,6 +20,7 @@ class Post(Base):
         comment="id автора",
     )
     topic_id: Mapped[UUID] = mapped_column(
+        ForeignKey("topics.id"),
         nullable=False,
         comment="id темы",
     )
