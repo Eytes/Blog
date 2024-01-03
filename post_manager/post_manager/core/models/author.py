@@ -5,9 +5,13 @@ from sqlalchemy.orm import (
 )
 
 from post_manager.core.models.base import Base
+from post_manager.core.models.mixins import (
+    CreationDateMixin,
+    EditDateMixin,
+)
 
 
-class Author(Base):
+class Author(Base, CreationDateMixin, EditDateMixin):
     name: Mapped[str] = mapped_column(
         nullable=False,
         unique=True,

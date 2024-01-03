@@ -1,36 +1,11 @@
-import datetime
-from uuid import UUID
-
-from sqlalchemy import (
-    func,
-    ForeignKey,
-)
-from sqlalchemy.orm import (
-    Mapped,
-    mapped_column,
-    relationship,
-)
-
 from post_manager.core.models.base import Base
+from post_manager.core.models.mixins import (
+    CreationDateMixin,
+    AuthorRelationMixin,
+    PostRelationMixin,
+)
 
 
-class Like(Base):
-    post_id: Mapped[UUID] = mapped_column(
-        ForeignKey("posts.id"),
-        nullable=False,
-        comment="id поста",
-    )
-    author_id: Mapped[UUID] = mapped_column(
-        ForeignKey("authors.id"),
-        nullable=False,
-        comment="id автора",
-    )
-    creation_date: Mapped[datetime.datetime] = mapped_column(
-        default=func.now(),
-        server_default=func.now(),
-        nullable=False,
-        comment="дата создания",
-    )
-
-    author: Mapped["Author"] = relationship(back_populates="likes")  # noqa: F821
-    post: Mapped["Post"] = relationship(back_populates="likes")  # noqa: F821
+class Like(Base, CreationDateMixin, AuthorRelationMixin, PostRelationMixin):
+    _author_back_populates = "likes"
+    _post_back_populates = "likes"

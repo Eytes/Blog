@@ -1,8 +1,3 @@
-import datetime
-
-from sqlalchemy import (
-    func,
-)
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
@@ -10,23 +5,16 @@ from sqlalchemy.orm import (
 )
 
 from post_manager.core.models.base import Base
+from post_manager.core.models.mixins import (
+    CreationDateMixin,
+    EditDateMixin,
+)
 
 
-class Topic(Base):
+class Topic(Base, CreationDateMixin, EditDateMixin):
     name: Mapped[str] = mapped_column(
         nullable=False,
         comment="Названание темы",
-    )
-    creation_date: Mapped[datetime.datetime] = mapped_column(
-        server_default=func.now(),
-        nullable=False,
-        comment="дата создания",
-    )
-    edit_date: Mapped[datetime.datetime] = mapped_column(
-        server_default=func.now(),
-        onupdate=func.now(),
-        nullable=False,
-        comment="дата последнего редактирования",
     )
 
     posts: Mapped[list["Post"]] = relationship(back_populates="topic")  # noqa: F821
