@@ -3,4 +3,4 @@ exclude =
     .git*
     *docker*
     Dockerfile
-    migration
+    alembic
