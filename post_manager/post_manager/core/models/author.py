@@ -1,12 +1,21 @@
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
+    relationship,
 )
 
 from post_manager.core.models.base import Base
+from post_manager.core.models.mixins import (
+    CreationDateMixin,
+    EditDateMixin,
+)
 
 
-class Author(Base):
+class Author(
+    Base,
+    CreationDateMixin,
+    EditDateMixin,
+):
     name: Mapped[str] = mapped_column(
         nullable=False,
         unique=True,
@@ -16,5 +25,8 @@ class Author(Base):
         unique=True,
     )
 
-    # posts: Mapped["Post"] = relationship(back_populates="author")  # noqa: F821
-    # comments: Mapped["Comment"] = relationship(back_populates="author")  # noqa: F821
+    posts: Mapped[list["Post"]] = relationship(back_populates="author")  # noqa: F821
+    comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
+        back_populates="author"
+    )
+    likes: Mapped[list["Like"]] = relationship(back_populates="author")  # noqa: F821
