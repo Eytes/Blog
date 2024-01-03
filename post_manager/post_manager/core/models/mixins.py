@@ -11,6 +11,8 @@ from sqlalchemy.orm import (
 
 
 class CreationDateMixin:
+    """Примесь в модель для добавления времени создания"""
+
     _creation_date_comment: str = "дата создания"
     _creation_date_nullable: bool = False
 
@@ -25,6 +27,8 @@ class CreationDateMixin:
 
 
 class EditDateMixin:
+    """Примесь в модель для добавления времени редактирования"""
+
     _edit_date_comment: str = "дата последнего редактирования"
     _edit_date_nullable: bool = False
 
@@ -40,6 +44,8 @@ class EditDateMixin:
 
 
 class AuthorRelationMixin:
+    """Примесь в модель для добавления данных о связанном авторе"""
+
     _author_id_comment: str = "id автора"
     _author_id_nullable: bool = False
     _author_back_populates: str | None = None
@@ -61,6 +67,8 @@ class AuthorRelationMixin:
 
 
 class PostRelationMixin:
+    """Примесь в модель для добавления данных о связанном посте"""
+
     _post_id_comment: str = "id поста"
     _post_id_nullable: bool = False
     _post_back_populates: str | None = None
@@ -82,6 +90,8 @@ class PostRelationMixin:
 
 
 class TopicRelationMixin:
+    """Примесь в модель для добавления данных о связанной теме поста"""
+
     _topic_id_comment: str = "id темы"
     _topic_id_nullable: bool = False
     _topic_back_populates: str | None = None
