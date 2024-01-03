@@ -11,7 +11,11 @@ from post_manager.core.models.mixins import (
 )
 
 
-class Author(Base, CreationDateMixin, EditDateMixin):
+class Author(
+    Base,
+    CreationDateMixin,
+    EditDateMixin,
+):
     name: Mapped[str] = mapped_column(
         nullable=False,
         unique=True,

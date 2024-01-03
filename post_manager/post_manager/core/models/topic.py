@@ -11,10 +11,14 @@ from post_manager.core.models.mixins import (
 )
 
 
-class Topic(Base, CreationDateMixin, EditDateMixin):
+class Topic(
+    Base,
+    CreationDateMixin,
+    EditDateMixin,
+):
     name: Mapped[str] = mapped_column(
         nullable=False,
-        comment="Названание темы",
+        comment="Название темы",
     )
 
     posts: Mapped[list["Post"]] = relationship(back_populates="topic")  # noqa: F821
