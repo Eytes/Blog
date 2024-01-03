@@ -5,6 +5,7 @@ __all__ = (
     "Author",
     "Comment",
     "Post",
+    "Topic",
 )
 
 from .author import Author
@@ -15,3 +16,4 @@ from .db_helper import (
     DatabaseHelper,
 )
 from .post import Post
+from .topic import Topic
