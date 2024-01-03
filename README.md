@@ -107,6 +107,18 @@ CREATE DATABASE test;
 alembic upgrade head
 ```
 
+### Просмотреть историю миграций:
+
+```commandline
+alembic history
+```
+
+### Посмотреть на какой мы сейчас миграции находимся:
+
+```commandline
+alembic current
+```
+
 ### Создать новую миграцию:
 
 ```commandline
