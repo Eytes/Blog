@@ -79,3 +79,24 @@ class PostRelationMixin:
             "Post",
             back_populates=cls._post_back_populates,
         )
+
+
+class TopicRelationMixin:
+    _topic_id_comment: str = "id темы"
+    _topic_id_nullable: bool = False
+    _topic_back_populates: str | None = None
+
+    @declared_attr
+    def topic_id(cls) -> Mapped[UUID]:
+        return mapped_column(
+            ForeignKey("topics.id"),
+            nullable=cls._topic_id_nullable,
+            comment=cls._topic_id_comment,
+        )
+
+    @declared_attr
+    def topic(cls) -> Mapped["Topic"]:  # noqa: F821
+        return relationship(
+            "Topic",
+            back_populates=cls._topic_back_populates,
+        )
