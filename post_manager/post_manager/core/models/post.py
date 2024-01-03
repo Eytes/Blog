@@ -23,6 +23,11 @@ class Post(Base):
         nullable=False,
         comment="id темы",
     )
+    title: Mapped[str] = mapped_column(
+        default="Без названия",
+        server_default="Без названия",
+        comment="Заголовок",
+    )
     content: Mapped[str] = mapped_column(
         nullable=False,
         comment="содержимое",
