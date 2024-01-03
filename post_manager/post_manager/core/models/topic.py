@@ -1,25 +1,24 @@
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
+    relationship,
 )
 
 from post_manager.core.models.base import Base
 from post_manager.core.models.mixins import (
     CreationDateMixin,
     EditDateMixin,
-    AuthorRelationMixin,
-    PostRelationMixin,
 )
 
 
-class Comment(
+class Topic(
     Base,
     CreationDateMixin,
     EditDateMixin,
-    AuthorRelationMixin,
-    PostRelationMixin,
 ):
-    _author_back_populates = "comments"
-    _post_back_populates = "comments"
+    name: Mapped[str] = mapped_column(
+        nullable=False,
+        comment="Название темы",
+    )
 
-    content: Mapped[str] = mapped_column(nullable=False)
+    posts: Mapped[list["Post"]] = relationship(back_populates="topic")  # noqa: F821
