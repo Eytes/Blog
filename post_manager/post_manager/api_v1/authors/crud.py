@@ -2,7 +2,6 @@ from uuid import UUID
 
 from pydantic import EmailStr
 from sqlalchemy import select
-from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors.schemas import (

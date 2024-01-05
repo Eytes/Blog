@@ -89,7 +89,7 @@ async def get_by_name(author: Author = Depends(get_author_by_name)):
     response_model=Author,
     status_code=status.HTTP_200_OK,
 )
-async def get_by_name(author: Author = Depends(get_author_by_email)):
+async def get_by_email(author: Author = Depends(get_author_by_email)):
     """Получение автора по электронной почте"""
     return author
 
