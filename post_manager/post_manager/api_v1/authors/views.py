@@ -6,7 +6,11 @@ from fastapi import (
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors import crud
-from post_manager.api_v1.authors.dependencies import get_author_by_id
+from post_manager.api_v1.authors.dependencies import (
+    get_author_by_id,
+    get_author_by_name,
+    get_author_by_email,
+)
 from post_manager.api_v1.authors.schemas import (
     AuthorCreate,
     Author,
@@ -63,6 +67,18 @@ async def update_partial(
 @router.get("/{author_id}/", response_model=Author)
 async def get_by_id(author: Author = Depends(get_author_by_id)):
     """Получение автора по id"""
+    return author
+
+
+@router.get("/{name}/", response_model=Author)
+async def get_by_name(author: Author = Depends(get_author_by_name)):
+    """Получение автора по имени"""
+    return author
+
+
+@router.get("/{email}/", response_model=Author)
+async def get_by_name(author: Author = Depends(get_author_by_email)):
+    """Получение автора по электронной почте"""
     return author
 
 
