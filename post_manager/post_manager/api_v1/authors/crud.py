@@ -1,5 +1,6 @@
 from uuid import UUID
 
+from pydantic import EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,6 +13,7 @@ from post_manager.core.models import Author
 
 
 async def get(session: AsyncSession) -> list[Author]:
+    # TODO: добавить offset (каждые 10 пользователей, например)
     statement = select(Author).order_by(Author.id)
     authors = await session.execute(statement)
     return list(authors.scalars())
@@ -20,6 +22,22 @@ async def get(session: AsyncSession) -> list[Author]:
 async def get_by_id(session: AsyncSession, author_id: UUID) -> Author | None:
     """Получение автора по id"""
     return await session.get(Author, author_id)
+
+
+async def get_by_name(session: AsyncSession, name: str) -> Author | None:
+    """Получение автора по имени"""
+    statement = select(Author).where(Author.name == name)
+    author: Author | None = await session.scalar(statement)
+    return author
+
+
+async def get_by_email(session: AsyncSession, email: EmailStr) -> Author | None:
+    """Получение пользователя по email"""
+    statement = select(Author).where(Author.email == email)
+    # result: Result = await session.execute(statement)
+    # author: Author | None = result.scalar_one_or_none()
+    author: Author | None = await session.scalar(statement)
+    return author
 
 
 # TODO: Обработка ошибки IntegrityError (возникает при несоответствии условий данных)
@@ -40,7 +58,7 @@ async def update(
     author_update: AuthorUpdate | AuthorUpdatePartial,
     partial: bool = False,
 ) -> Author:
-    """Полное обновление данных об авторе"""
+    """Обновление данных об авторе"""
     for name, value in author_update.model_dump(exclude_unset=partial).items():
         setattr(author, name, value)
     await session.commit()

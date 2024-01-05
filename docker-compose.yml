@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_USER: eytes
+      POSTGRES_DB: blog
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+#    volumes:
+#      - "db-data:/var/lib/postgresql/data"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d blog" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+#    restart: always
+    restart: unless-stopped
+    networks:
+      - backtier
+
+
+  post_manager:
+    depends_on:
+      db:
+        condition: service_healthy
+    container_name: post_manager
+    build:
+      context: post_manager
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - backtier
+
+volumes:
+  db-data:
+
+networks:
+  backtier:
+    driver: bridge

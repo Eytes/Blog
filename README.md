@@ -80,7 +80,7 @@
 ### :desktop_computer: Поднимите локальную версию базы данных
 
 ```commandline
-DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost docker-compose -f docker-compose-local-dev-database.yml up -d
+docker-compose -f docker-compose-local-dev-database.yml up -d
 ```
 
 ### :desktop_computer: Для локальных тестов понадобится отдельная база данных, потому что фикстуры тестов удаляют все данные из базы для чистоты тестов.
@@ -101,17 +101,42 @@ psql -h localhost -U test
 CREATE DATABASE test;
 ```
 
-### :desktop_computer: Настройте структуру базы
+### :desktop_computer: Настройте структуру базы через миграции
 
 ```commandline
-DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql alembic upgrade head
+alembic upgrade head
 ```
 
-### Пользуйтесь командой миграции:
+### Просмотреть историю миграций:
 
 ```commandline
-DB_NAME=test DB_USER=test DB_PASSWORD=test DB_PORT=5431 DB_HOST=localhost DB_DRIVER=postgresql alembic revision --autogenerate -m "Оставляйте осмысленное описание изменений"
+alembic history
 ```
+
+### Посмотреть на какой мы сейчас миграции находимся:
+
+```commandline
+alembic current
+```
+
+### Создать новую миграцию:
+
+```commandline
+alembic revision --autogenerate -m "Оставляйте осмысленное описание изменений"  
+```
+
+### Откатиться на одну миграцию:
+
+```commandline
+alembic downgrade -1
+```
+
+### При удалении миграции необходимо:
+
+1. Откатить миграцию `alembic downgrade -1`
+2. Удалить файл миграции
+
+Если не делать откат, то будет конфликт миграций alembic
 
 ---
 
