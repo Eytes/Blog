@@ -6,7 +6,11 @@ from fastapi import (
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors import crud
-from post_manager.api_v1.authors.dependencies import get_author_by_id
+from post_manager.api_v1.authors.dependencies import (
+    get_author_by_id,
+    get_author_by_name,
+    get_author_by_email,
+)
 from post_manager.api_v1.authors.schemas import (
     AuthorCreate,
     Author,
@@ -51,7 +55,7 @@ async def update_partial(
     author: Author = Depends(get_author_by_id),
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
-    """Обновление всех данных автора"""
+    """Обновление данных автора"""
     return await crud.update(
         session=session,
         author=author,
@@ -60,13 +64,41 @@ async def update_partial(
     )
 
 
-@router.get("/{author_id}/", response_model=Author)
+@router.get(
+    "/id/{author_id}/",
+    response_model=Author,
+    status_code=status.HTTP_200_OK,
+)
 async def get_by_id(author: Author = Depends(get_author_by_id)):
     """Получение автора по id"""
     return author
 
 
-@router.get("/", response_model=list[Author])
+@router.get(
+    "/name/{name}/",
+    response_model=Author,
+    status_code=status.HTTP_200_OK,
+)
+async def get_by_name(author: Author = Depends(get_author_by_name)):
+    """Получение автора по имени"""
+    return author
+
+
+@router.get(
+    "/email/{email}/",
+    response_model=Author,
+    status_code=status.HTTP_200_OK,
+)
+async def get_by_email(author: Author = Depends(get_author_by_email)):
+    """Получение автора по электронной почте"""
+    return author
+
+
+@router.get(
+    "/",
+    response_model=list[Author],
+    status_code=status.HTTP_200_OK,
+)
 async def get(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
     """Получение всех авторов"""
     # TODO: добавить offset (каждые 10 пользователей, например)
@@ -74,7 +106,7 @@ async def get(session: AsyncSession = Depends(db_helper.scoped_session_dependenc
 
 
 @router.delete(
-    "/{author_id}/",
+    "/id/{author_id}/",
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete(
