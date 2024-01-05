@@ -51,7 +51,7 @@ async def update_partial(
     author: Author = Depends(get_author_by_id),
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
 ):
-    """Обновление всех данных автора"""
+    """Обновление данных автора"""
     return await crud.update(
         session=session,
         author=author,

@@ -41,7 +41,7 @@ async def update(
     author_update: AuthorUpdate | AuthorUpdatePartial,
     partial: bool = False,
 ) -> Author:
-    """Полное обновление данных об авторе"""
+    """Обновление данных об авторе"""
     for name, value in author_update.model_dump(exclude_unset=partial).items():
         setattr(author, name, value)
     await session.commit()
