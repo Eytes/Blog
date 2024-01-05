@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1b2c427e-13ee-4991-b10f-c77c52503065" name="Changes" comment="исключил папку с миграциями из проверок">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/post_manager/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_manager/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/post_manager/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post_manager/post_manager/core/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/post_manager/post_manager/core/config.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="post_manager_routers/authors" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2a8MOKuPu6dXeC2VPwKvmXiqPwm" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "docker-compose",
+    "last_opened_file_path": "/Users/eytes/Projects/Blog",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/post_manager" />
+      <recent name="$PROJECT_DIR$/post_manager/post_manager" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13135.95" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b2c427e-13ee-4991-b10f-c77c52503065" name="Changes" comment="" />
+      <created>1703695719360</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1703695719360</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Добавление настроек линтера">
+      <option name="closed" value="true" />
+      <created>1704049915263</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1704049915263</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Удаление миграций alembic">
+      <option name="closed" value="true" />
+      <created>1704049943167</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704049943167</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Добавление асинхронного клиента для БД">
+      <option name="closed" value="true" />
+      <created>1704050030606</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1704050030606</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Создание новой таблицы комментариев">
+      <option name="closed" value="true" />
+      <created>1704050097074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1704050097074</updated>
+    </task>
+    <task id="LOCAL-00005" summary="добавление отслеживания изменений в poetry.lock">
+      <option name="closed" value="true" />
+      <created>1704104460232</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1704104460232</updated>
+    </task>
+    <task id="LOCAL-00006" summary="указание, что нужно запускать тесты лишь тогда, когда был успешный линтер или он был пропущен">
+      <option name="closed" value="true" />
+      <created>1704108909150</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1704108909150</updated>
+    </task>
+    <task id="LOCAL-00007" summary="указание дополнительной ветки для срабатывания">
+      <option name="closed" value="true" />
+      <created>1704109180163</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1704109180163</updated>
+    </task>
+    <task id="LOCAL-00008" summary="убираем проверку файлов докера, гит">
+      <option name="closed" value="true" />
+      <created>1704109604256</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1704109604256</updated>
+    </task>
+    <task id="LOCAL-00009" summary="переименование файла local-dev-database.yml">
+      <option name="closed" value="true" />
+      <created>1704109665896</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1704109665896</updated>
+    </task>
+    <task id="LOCAL-00010" summary="замена на событие пропуска предыдущего job">
+      <option name="closed" value="true" />
+      <created>1704112130628</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1704112130628</updated>
+    </task>
+    <task id="LOCAL-00011" summary="изменение условия срабатывания тестирования">
+      <option name="closed" value="true" />
+      <created>1704112985051</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1704112985051</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix">
+      <option name="closed" value="true" />
+      <created>1704113058451</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1704113058451</updated>
+    </task>
+    <task id="LOCAL-00013" summary="изменение условия срабатывания тестирования">
+      <option name="closed" value="true" />
+      <created>1704119734607</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1704119734607</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fix">
+      <option name="closed" value="true" />
+      <created>1704119807458</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1704119807458</updated>
+    </task>
+    <task id="LOCAL-00015" summary="optimization">
+      <option name="closed" value="true" />
+      <created>1704120826252</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1704120826252</updated>
+    </task>
+    <task id="LOCAL-00016" summary="корректировка запуска БД">
+      <option name="closed" value="true" />
+      <created>1704192451172</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1704192451172</updated>
+    </task>
+    <task id="LOCAL-00017" summary="корректировка установка зависимостей">
+      <option name="closed" value="true" />
+      <created>1704192472684</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1704192472684</updated>
+    </task>
+    <task id="LOCAL-00018" summary="init alembic">
+      <option name="closed" value="true" />
+      <created>1704284482518</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1704284482518</updated>
+    </task>
+    <task id="LOCAL-00019" summary="создание миграции для таблиц авторов, постов, комментариев">
+      <option name="closed" value="true" />
+      <created>1704284529138</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1704284529138</updated>
+    </task>
+    <task id="LOCAL-00020" summary="убрал переменные окружения для установки значений переменных">
+      <option name="closed" value="true" />
+      <created>1704284597270</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1704284597270</updated>
+    </task>
+    <task id="LOCAL-00021" summary="исключил папку с миграциями из проверок">
+      <option name="closed" value="true" />
+      <created>1704285662955</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1704285662955</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавление настроек линтера" />
+    <MESSAGE value="Удаление миграций alembic" />
+    <MESSAGE value="Добавление асинхронного клиента для БД" />
+    <MESSAGE value="Создание новой таблицы комментариев" />
+    <MESSAGE value="добавление отслеживания изменений в poetry.lock" />
+    <MESSAGE value="указание, что нужно запускать тесты лишь тогда, когда был успешный линтер или он был пропущен" />
+    <MESSAGE value="указание дополнительной ветки для срабатывания" />
+    <MESSAGE value="убираем проверку файлов докера, гит" />
+    <MESSAGE value="переименование файла local-dev-database.yml" />
+    <MESSAGE value="замена на событие пропуска предыдущего job" />
+    <MESSAGE value="изменение условия срабатывания тестирования" />
+    <MESSAGE value="fix" />
+    <MESSAGE value="optimization" />
+    <MESSAGE value="корректировка запуска БД" />
+    <MESSAGE value="корректировка установка зависимостей" />
+    <MESSAGE value="init alembic" />
+    <MESSAGE value="создание миграции для таблиц авторов, постов, комментариев" />
+    <MESSAGE value="убрал переменные окружения для установки значений переменных" />
+    <MESSAGE value="исключил папку с миграциями из проверок" />
+    <option name="LAST_COMMIT_MESSAGE" value="исключил папку с миграциями из проверок" />
+  </component>
+</project>
