@@ -9,10 +9,10 @@ from pydantic import EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors import crud
-from post_manager.api_v1.exeptions import (
-    NotFoundByIdException,
-    NotFoundByNameException,
-    NotFoundByEmailException,
+from post_manager.api_v1.authors.exceptions import (
+    AuthorNotFoundByIdHTTPException,
+    AuthorNotFoundByNameHTTPException,
+    AuthorNotFoundByEmailHTTPException,
 )
 from post_manager.core.models import (
     db_helper,
@@ -29,7 +29,7 @@ async def get_author_by_id(
         session=session,
     )
     if author is None:
-        raise NotFoundByIdException(author_id)
+        raise AuthorNotFoundByIdHTTPException(author_id)
     return author
 
 
@@ -42,7 +42,7 @@ async def get_author_by_name(
         name=name,
     )
     if author is None:
-        raise NotFoundByNameException(name)
+        raise AuthorNotFoundByNameHTTPException(name)
     return author
 
 
@@ -55,5 +55,5 @@ async def get_author_by_email(
         email=email,
     )
     if author is None:
-        raise NotFoundByEmailException(email)
+        raise AuthorNotFoundByEmailHTTPException(email)
     return author
