@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi import (
     APIRouter,
     Depends,
@@ -5,6 +7,7 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from post_manager.api_v1 import utils
 from post_manager.api_v1.authors import crud
 from post_manager.api_v1.authors.dependencies import (
     get_author_by_id,
@@ -92,6 +95,22 @@ async def get_by_name(author: Author = Depends(get_author_by_name)):
 async def get_by_email(author: Author = Depends(get_author_by_email)):
     """Получение автора по электронной почте"""
     return author
+
+
+@router.get(
+    "/post/{post_id}",
+    response_model=Author,
+    status_code=status.HTTP_200_OK,
+)
+async def get_by_post_id(
+    post_id: UUID,
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    """Получить автора по id поста"""
+    return await utils.get_author_by_post_id(
+        session=session,
+        post_id=post_id,
+    )
 
 
 @router.get(
