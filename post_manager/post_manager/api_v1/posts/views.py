@@ -83,7 +83,7 @@ async def update(
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Обновление всех данных поста"""
-    return crud.update(
+    return await crud.update(
         session=session,
         post=post,
         post_update=post_update,
@@ -100,7 +100,7 @@ async def update_partial(
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Частичное обновление данных поста"""
-    return crud.update(
+    return await crud.update(
         session=session,
         post=post,
         post_update=post_update,
