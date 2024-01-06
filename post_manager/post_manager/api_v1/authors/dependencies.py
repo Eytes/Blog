@@ -22,7 +22,7 @@ from post_manager.core.models import (
 
 async def get_author_by_id(
     author_id: Annotated[UUID, Path],
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Author:
     author = await crud.get_by_id(
         author_id=author_id,
@@ -35,7 +35,7 @@ async def get_author_by_id(
 
 async def get_author_by_name(
     name: str,
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Author:
     author = await crud.get_by_name(
         session=session,
@@ -48,7 +48,7 @@ async def get_author_by_name(
 
 async def get_author_by_email(
     email: EmailStr,
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Author:
     author = await crud.get_by_email(
         session=session,

@@ -12,7 +12,7 @@ from post_manager.core.models import db_helper
 
 async def get_post_by_id(
     post_id: Annotated[UUID, Path],
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Post:
     post = await crud.get_by_id(session=session, post_id=post_id)
     if post is None:
