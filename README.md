@@ -79,7 +79,9 @@
 
 1. Клонируйте репозиторий: `git clone ...`
 2. Перейдите в папку проекта
-3. Запустите команду докера: `docker-compose ud -d`
+3. Запустите команду докера: `docker-compose ud -d --build`
+4. Запустите миграции: `docker-compose exec post_manager alembic upgrade head`
+5. Откройте в браузере ссылку http://localhost:8080/docs. Должен открыться swagger для работы с api
 
 ---
 
