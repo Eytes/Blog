@@ -21,7 +21,8 @@ from post_manager.api_v1.authors.schemas import (
     AuthorUpdate,
     AuthorUpdatePartial,
 )
-from post_manager.core.models import db_helper, Post
+from post_manager.api_v1.posts.schemas import Post
+from post_manager.core.models import db_helper
 
 router = APIRouter(tags=["Authors"])
 
@@ -95,10 +96,11 @@ async def get_posts_by_author_id(
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Получить посты автора по id автора"""
-    return await utils.get_posts_by_author_id(
+    posts = await utils.get_posts_by_author_id(
         session=session,
         author_id=author_id,
     )
+    return posts
 
 
 @router.post(

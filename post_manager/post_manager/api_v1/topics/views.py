@@ -15,11 +15,9 @@ from post_manager.api_v1.topics.schemas import (
     TopicCreate,
     TopicUpdate,
     TopicUpdatePartial,
-)
-from post_manager.core.models import (
     Topic,
-    db_helper,
 )
+from post_manager.core.models import db_helper
 
 router = APIRouter(tags=["Topics"])
 
