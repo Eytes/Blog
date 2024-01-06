@@ -1,5 +1,4 @@
 from typing import Annotated
-from uuid import UUID
 
 from fastapi import (
     APIRouter,
@@ -8,7 +7,6 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from post_manager.api_v1 import utils
 from post_manager.api_v1.posts import crud
 from post_manager.api_v1.posts.dependencies import get_post_by_id
 from post_manager.api_v1.posts.schemas import (
@@ -42,22 +40,6 @@ async def get(
 async def get_by_id(post: Annotated[Post, Depends(get_post_by_id)]):
     """Получение поста по id"""
     return post
-
-
-@router.get(
-    "/author/{author_id}/",
-    response_model=list[Post],
-    status_code=status.HTTP_200_OK,
-)
-async def get_posts_by_author_id(
-    author_id: UUID,
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
-):
-    """Получить посты автора по id автора"""
-    return await utils.get_posts_by_author_id(
-        session=session,
-        author_id=author_id,
-    )
 
 
 @router.post(
