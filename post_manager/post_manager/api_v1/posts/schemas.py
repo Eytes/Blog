@@ -11,7 +11,7 @@ class PostBase(BaseModel):
 
 
 class PostCreate(PostBase):
-    pass
+    author_id: UUID
 
 
 class PostUpdate(PostBase):
