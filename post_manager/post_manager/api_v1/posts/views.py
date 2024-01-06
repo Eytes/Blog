@@ -91,7 +91,7 @@ async def update(
     "/update/{post_id}",
     response_model=Post,
 )
-async def update(
+async def update_partial(
     post_update: PostUpdatePartial,
     post: Post = Depends(get_post_by_id),
     session: AsyncSession = Depends(db_helper.scoped_session_dependency),
