@@ -15,11 +15,3 @@ class __PostNotFoundHTTPException(NotFoundHTTPException):
 
 class PostNotFoundByIdHTTPException(__PostNotFoundHTTPException):
     pass
-
-
-class PostNotFoundByNameHTTPException(__PostNotFoundHTTPException):
-    pass
-
-
-class PostNotFoundByEmailHTTPException(__PostNotFoundHTTPException):
-    pass
