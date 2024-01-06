@@ -1,3 +1,4 @@
+from typing import Annotated
 from uuid import UUID
 
 from fastapi import (
@@ -25,7 +26,9 @@ router = APIRouter(tags=["Posts"])
     "/",
     response_model=list[Post],
 )
-async def get(session: AsyncSession = Depends(db_helper.scoped_session_dependency)):
+async def get(
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+):
     """Получение всех постов"""
     # TODO: добавить offset (каждые 10 пользователей, например)
     return await crud.get(session)
@@ -36,7 +39,7 @@ async def get(session: AsyncSession = Depends(db_helper.scoped_session_dependenc
     response_model=Post,
     status_code=status.HTTP_200_OK,
 )
-async def get_by_id(post: Post = Depends(get_post_by_id)):
+async def get_by_id(post: Annotated[Post, Depends(get_post_by_id)]):
     """Получение поста по id"""
     return post
 
@@ -48,7 +51,7 @@ async def get_by_id(post: Post = Depends(get_post_by_id)):
 )
 async def get_posts_by_author_id(
     author_id: UUID,
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Получить посты автора по id автора"""
     return await utils.get_posts_by_author_id(
@@ -64,7 +67,7 @@ async def get_posts_by_author_id(
 )
 async def create(
     new_post: PostCreate,
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Создание поста"""
     return await crud.create(session=session, post=new_post)
@@ -76,8 +79,8 @@ async def create(
 )
 async def update(
     post_update: PostUpdate,
-    post: Post = Depends(get_post_by_id),
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    post: Annotated[Post, Depends(get_post_by_id)],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Обновление всех данных поста"""
     return crud.update(
@@ -93,8 +96,8 @@ async def update(
 )
 async def update_partial(
     post_update: PostUpdatePartial,
-    post: Post = Depends(get_post_by_id),
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    post: Annotated[Post, Depends(get_post_by_id)],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Частичное обновление данных поста"""
     return crud.update(
