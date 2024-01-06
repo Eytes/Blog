@@ -68,7 +68,7 @@ async def update_partial(
 
 
 @router.get(
-    "/id/{author_id}/",
+    "/{author_id}/",
     response_model=Author,
     status_code=status.HTTP_200_OK,
 )
@@ -98,7 +98,7 @@ async def get_by_email(author: Author = Depends(get_author_by_email)):
 
 
 @router.get(
-    "/post/{post_id}",
+    "/posts/{post_id}",
     response_model=Author,
     status_code=status.HTTP_200_OK,
 )
@@ -125,7 +125,7 @@ async def get(session: AsyncSession = Depends(db_helper.scoped_session_dependenc
 
 
 @router.delete(
-    "/id/{author_id}/",
+    "/{author_id}/",
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete(
