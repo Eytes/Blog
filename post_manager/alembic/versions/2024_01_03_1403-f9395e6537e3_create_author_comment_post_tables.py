@@ -7,9 +7,8 @@ Create Date: 2024-01-03 14:03:23.796312
 """
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision: str = "f9395e6537e3"
@@ -33,20 +32,20 @@ def upgrade() -> None:
         "posts",
         sa.Column("author_id", sa.Uuid(), nullable=False, comment="id автора"),
         sa.Column("topic", sa.Integer(), nullable=False, comment="id темы"),
-        sa.Column("content", sa.String(), nullable=False, comment="содержимое"),
+        sa.Column("content", sa.String(), nullable=False, comment="Содержимое"),
         sa.Column(
             "creation_date",
             sa.DateTime(),
             server_default=sa.text("now()"),
             nullable=False,
-            comment="дата создания",
+            comment="Дата создания",
         ),
         sa.Column(
             "edit_date",
             sa.DateTime(),
             server_default=sa.text("now()"),
             nullable=False,
-            comment="дата последнего редактирования",
+            comment="Дата последнего редактирования",
         ),
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(
@@ -65,14 +64,14 @@ def upgrade() -> None:
             sa.DateTime(),
             server_default=sa.text("now()"),
             nullable=False,
-            comment="дата создания",
+            comment="Дата создания",
         ),
         sa.Column(
             "edit_date",
             sa.DateTime(),
             server_default=sa.text("now()"),
             nullable=False,
-            comment="дата последнего редактирования",
+            comment="Дата последнего редактирования",
         ),
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(

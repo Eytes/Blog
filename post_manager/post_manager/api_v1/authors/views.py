@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi import (
     APIRouter,
     Depends,
@@ -5,6 +7,7 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from post_manager.api_v1 import utils
 from post_manager.api_v1.authors import crud
 from post_manager.api_v1.authors.dependencies import (
     get_author_by_id,
@@ -65,7 +68,7 @@ async def update_partial(
 
 
 @router.get(
-    "/id/{author_id}/",
+    "/{author_id}/",
     response_model=Author,
     status_code=status.HTTP_200_OK,
 )
@@ -95,6 +98,22 @@ async def get_by_email(author: Author = Depends(get_author_by_email)):
 
 
 @router.get(
+    "/posts/{post_id}",
+    response_model=Author,
+    status_code=status.HTTP_200_OK,
+)
+async def get_by_post_id(
+    post_id: UUID,
+    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+):
+    """Получить автора по id поста"""
+    return await utils.get_author_by_post_id(
+        session=session,
+        post_id=post_id,
+    )
+
+
+@router.get(
     "/",
     response_model=list[Author],
     status_code=status.HTTP_200_OK,
@@ -106,7 +125,7 @@ async def get(session: AsyncSession = Depends(db_helper.scoped_session_dependenc
 
 
 @router.delete(
-    "/id/{author_id}/",
+    "/{author_id}/",
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete(
