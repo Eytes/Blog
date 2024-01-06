@@ -88,3 +88,15 @@ async def update_partial(
         post_update=post_update,
         partial=True,
     )
+
+
+@router.delete(
+    "/{post_id}/",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def delete(
+    post: Annotated[Post, Depends(get_post_by_id)],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+) -> None:
+    """Удаление поста"""
+    await crud.delete(session=session, post=post)
