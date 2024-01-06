@@ -7,9 +7,8 @@ Create Date: 2024-01-03 17:13:25.985100
 """
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision: str = "827f86d829de"
@@ -27,7 +26,7 @@ def upgrade() -> None:
             sa.DateTime(),
             server_default=sa.text("now()"),
             nullable=False,
-            comment="дата создания",
+            comment="Дата создания",
         ),
     )
     op.add_column(
@@ -37,7 +36,7 @@ def upgrade() -> None:
             sa.DateTime(),
             server_default=sa.text("now()"),
             nullable=False,
-            comment="дата последнего редактирования",
+            comment="Дата последнего редактирования",
         ),
     )
     op.alter_column(

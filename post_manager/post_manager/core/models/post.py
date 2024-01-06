@@ -30,7 +30,7 @@ class Post(
     )
     content: Mapped[str] = mapped_column(
         nullable=False,
-        comment="содержимое",
+        comment="Содержимое",
     )
 
     comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
