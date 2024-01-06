@@ -13,7 +13,7 @@ from sqlalchemy.orm import (
 class CreationDateMixin:
     """Примесь в модель для добавления времени создания"""
 
-    _creation_date_comment: str = "дата создания"
+    _creation_date_comment: str = "Дата создания"
     _creation_date_nullable: bool = False
 
     @declared_attr
@@ -29,7 +29,7 @@ class CreationDateMixin:
 class EditDateMixin:
     """Примесь в модель для добавления времени редактирования"""
 
-    _edit_date_comment: str = "дата последнего редактирования"
+    _edit_date_comment: str = "Дата последнего редактирования"
     _edit_date_nullable: bool = False
 
     @declared_attr
