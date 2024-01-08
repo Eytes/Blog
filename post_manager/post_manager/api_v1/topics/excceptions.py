@@ -7,11 +7,11 @@ from post_manager.api_v1.exceptions import (
 )
 
 
-class __PostNotFoundHTTPException(NotFoundHTTPException):
+class __TopicNotFoundHTTPException(NotFoundHTTPException):
     def __init__(self, identifier: UUID | EmailStr | str):
         super().__init__()
-        self.detail = f"Post {identifier} not found!"
+        self.detail = f"Topic {identifier} not found!"
 
 
-class PostNotFoundByIdHTTPException(__PostNotFoundHTTPException):
+class TopicNotFoundByIdHTTPException(__TopicNotFoundHTTPException):
     pass

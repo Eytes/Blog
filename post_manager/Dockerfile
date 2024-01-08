@@ -12,7 +12,7 @@ RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 
 FROM python:3.10-alpine
-WORKDIR /code
+WORKDIR /app
 
 COPY --from=builder /tmp/requirements.txt requirements.txt
 
