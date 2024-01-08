@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 
 class DataBaseSettings(BaseModel):
-    url: str = "postgresql+asyncpg://eytes:qwerty@postgres/blog"
+    url: str = "postgresql+asyncpg://postgres:qwerty@postgres/blog"
     # echo: bool = True  # TODO: Заменить на False при публикации на сервере
     echo: bool = False
 

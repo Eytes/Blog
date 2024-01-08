@@ -4,32 +4,28 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict
 
 
-class PostBase(BaseModel):
-    title: str
+class CommentBase(BaseModel):
     content: str
-    topic_id: UUID
 
 
-class PostCreate(PostBase):
+class CommentCreate(CommentBase):
     author_id: UUID
+    post_id: UUID
 
 
-class PostUpdate(PostBase):
+class CommentUpdate(CommentBase):
     pass
 
 
-class PostUpdatePartial(PostBase):
-    title: str | None = None
+class CommentUpdatePartial(CommentBase):
     content: str | None = None
-    topic_id: UUID | None = None
 
 
-class Post(PostBase):
-    """Схема данных с полной информацией о посте"""
-
+class Comment(CommentBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: UUID
     author_id: UUID
+    post_id: UUID
     creation_date: datetime.datetime
     edit_date: datetime.datetime
