@@ -1,4 +1,4 @@
-name: Post manager CI
+name: Post manager run tests
 run-name: ${{ github.event_name }} to ${{ github.ref_name }} by @${{ github.actor }}
 env:
   LINTER_SKIPPED: true
@@ -25,31 +25,32 @@ jobs:
       matrix:
         python-version: [ "3.9", "3.10", "3.11" ]
     steps:
-      - name: Set up Python
+      -
+        name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Install Poetry
+      -
+        name: Install Poetry
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: false
           virtualenvs-in-project: false
           installer-parallel: true
-
-      - name: Get post manager code
+      -
+        name: Get post manager code
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
             post_manager
           sparse-checkout-cone-mode: false
-
-      - name: Install dependencies
+      -
+        name: Install dependencies
         run: |
           cd post_manager
           poetry install --no-interaction --no-root --no-directory --with dev
-
-      - name: Run tests
+      -
+        name: Run tests
         run: |
           cd post_manager
           poetry run pytest
