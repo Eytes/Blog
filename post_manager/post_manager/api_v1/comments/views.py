@@ -41,7 +41,7 @@ async def get_by_post_id(
     response_model=list[Comment],
     status_code=status.HTTP_200_OK,
 )
-async def get_by_post_id(
+async def get_by_author_id(
     author_id: Annotated[UUID, Path],
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
