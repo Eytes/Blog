@@ -24,13 +24,12 @@ class PostUpdatePartial(PostBase):
     topic_id: UUID | None = None
 
 
-class Post(BaseModel):
+class Post(PostBase):
     """Схема данных с полной информацией о посте"""
 
     model_config = ConfigDict(from_attributes=True)
 
     id: UUID
     author_id: UUID
-    topic_id: UUID
     creation_date: datetime.datetime
     edit_date: datetime.datetime
