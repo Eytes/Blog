@@ -17,11 +17,11 @@ class AuthorCreate(AuthorBase):
     pass
 
 
-class AuthorUpdate(AuthorBase):
+class AuthorUpdate(AuthorCreate):
     pass
 
 
-class AuthorUpdatePartial(AuthorBase):
+class AuthorUpdatePartial(AuthorCreate):
     name: str | None = None
     email: EmailStr | None = None
 
