@@ -10,6 +10,7 @@ class CommentBase(BaseModel):
 
 class CommentCreate(CommentBase):
     author_id: UUID
+    post_id: UUID
 
 
 class CommentUpdate(CommentBase):
