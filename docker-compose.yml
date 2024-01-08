@@ -4,34 +4,43 @@ services:
   db:
     image: postgres:16
     container_name: postgres
+    restart: always
+    #    volumes:
+    #      - "db-data:/var/lib/postgresql/data"
     environment:
       POSTGRES_PASSWORD: qwerty
-      POSTGRES_USER: eytes
+      POSTGRES_USER: postgres
       POSTGRES_DB: blog
       PGDATA: "/var/lib/postgresql/data/pgdata"
-#    volumes:
-#      - "db-data:/var/lib/postgresql/data"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres -d blog" ]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 10s
-#    restart: always
-    restart: unless-stopped
     networks:
       - backtier
-
 
   post_manager:
     depends_on:
       db:
         condition: service_healthy
     container_name: post_manager
+    restart: always
     build:
       context: post_manager
       dockerfile: Dockerfile
-    restart: always
+    develop:
+      watch:
+        -
+          action: rebuild
+          path: ./post_manager/pyproject.toml
+        -
+          action: rebuild
+          path: ./post_manager/Dockerfile
+        -
+          action: sync
+          path: ./post_manager/post_manager
+          target: /app/post_manager
     ports:
       - "8080:80"
     networks:
