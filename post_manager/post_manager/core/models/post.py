@@ -34,6 +34,7 @@ class Post(
         nullable=False,
         comment="Содержимое",
     )
+    # TODO: добавить кол-во лайков отдельным полем
 
     comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
         back_populates="post",
