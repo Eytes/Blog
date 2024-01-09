@@ -5,15 +5,11 @@ services:
     image: postgres:16
     container_name: postgres
     restart: always
-    #    volumes:
-    #      - "db-data:/var/lib/postgresql/data"
-    environment:
-      POSTGRES_PASSWORD: qwerty
-      POSTGRES_USER: postgres
-      POSTGRES_DB: blog
-      PGDATA: "/var/lib/postgresql/data/pgdata"
+    env_file: .db-env
+    volumes:
+      - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d blog" ]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -26,6 +22,8 @@ services:
         condition: service_healthy
     container_name: post_manager
     restart: always
+    env_file:
+      - .post_manager-env
     build:
       context: post_manager
       dockerfile: Dockerfile
