@@ -17,6 +17,7 @@ class Topic(
     EditDateMixin,
 ):
     name: Mapped[str] = mapped_column(
+        unique=True,
         nullable=False,
         comment="Название темы",
     )
