@@ -1,4 +1,4 @@
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import PrimaryKeyConstraint
 
 from post_manager.core.models.base import Base
 from post_manager.core.models.mixins import (
@@ -18,7 +18,7 @@ class Like(
     _post_back_populates = "likes"
 
     __table_args__ = (
-        UniqueConstraint(
+        PrimaryKeyConstraint(
             "author_id",
             "post_id",
             name="like_unique",
