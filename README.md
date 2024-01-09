@@ -75,41 +75,38 @@
 
 ---
 
-# Инструкция для запуска
+# Запуск приложения
+
+## План действий
 
 1. Клонируйте репозиторий: `git clone ...`
 2. Перейдите в папку проекта
-3. Запустите команду докера: `docker-compose ud -d --build`
-4. Запустите миграции: `docker-compose exec post_manager alembic upgrade head`
-5. Откройте в браузере ссылку http://localhost:8080/docs. Должен открыться swagger для работы с api
+3. Создайте файлы `.db-env` и `.post_manager-env` с вашими значениями
+4. Запустите команду докера: `docker-compose ud -d --build`
+5. Запустите миграции: `docker-compose exec post_manager alembic upgrade head`
+6. Откройте в браузере ссылку http://localhost:8080/docs. Должен открыться swagger для работы с api
+
+### Содержимое `.db-env`
+
+```dotenv
+POSTGRES_USER=имя-пользователя
+POSTGRES_PASSWORD=пароль
+POSTGRES_DB=название-БД
+PGDATA=/var/lib/postgresql/data/pgdata
+```
+
+### Содержимое `.post_manager-env`
+
+```dotenv
+POSTGRES_USER=имя-пользователя
+POSTGRES_PASSWORD=пароль
+POSTGRES_HOST=название-контейнера-с-БД
+POSTGRES_DB=название-БД
+```
 
 ---
 
-# Инструкции для тестирования локально
-
-### :desktop_computer: Поднимите локальную версию базы данных
-
-```commandline
-docker-compose -f docker-compose-local-dev-database.yml up -d
-```
-
-### :desktop_computer: Для локальных тестов понадобится отдельная база данных, потому что фикстуры тестов удаляют все данные из базы для чистоты тестов.
-
-Зайдите в созданный контейнер:
-
-```commandline
-docker exec -it local-dev-db-for-testing bash
-```
-
-и выполните команды:
-
-```commandline
-psql -h localhost -U test
-```
-
-```sql
-CREATE DATABASE test;
-```
+# Некоторые команды для работы с миграциями
 
 ### :desktop_computer: Настройте структуру базы через миграции
 

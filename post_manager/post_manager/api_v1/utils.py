@@ -13,6 +13,7 @@ from post_manager.core.models import (
     Author,
     Post,
     Topic,
+    Comment,
 )
 
 
@@ -32,6 +33,7 @@ async def get_posts_by_author_id(
 
 async def get_posts_with_authors(session: AsyncSession):
     """Получить посты и их авторов"""
+    # TODO: добавить offset
     statement = (
         select(Post)
         .options(
@@ -81,3 +83,30 @@ async def get_topic_by_post_id(
     )
     topic = await session.scalar(statement)
     return topic
+
+
+async def get_comments_by_post_id(
+    post_id: UUID,
+    session: AsyncSession,
+) -> list[Comment]:
+    """Получить все комментарии поста по id поста"""
+    await get_post_by_id(
+        session=session,
+        post_id=post_id,
+    )  # проверка существования поста
+    # TODO: добавить offset
+    statement = select(Comment).where(Comment.post_id == post_id)
+    comments = await session.scalars(statement)
+    return list(comments)
+
+
+async def get_comments_by_author_id(
+    author_id: UUID,
+    session: AsyncSession,
+) -> list[Comment]:
+    """Получить комментарии автора по id автора"""
+    await get_author_by_id(author_id=author_id, session=session)
+    # TODO: сделать offset
+    statement = select(Comment).where(Comment.author_id == author_id)
+    comments = await session.scalars(statement)
+    return list(comments)
