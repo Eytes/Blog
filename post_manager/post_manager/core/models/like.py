@@ -16,6 +16,7 @@ class Like(
 ):
     _author_back_populates = "likes"
     _post_back_populates = "likes"
+    _author_id_index = False
 
     __table_args__ = (
         PrimaryKeyConstraint(

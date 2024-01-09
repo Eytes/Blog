@@ -60,13 +60,14 @@ class AuthorRelationMixin:
 
     _author_id_comment: str = "id автора"
     _author_id_nullable: bool = False
+    _author_id_index: bool = True
     _author_back_populates: str | None = None
 
     @declared_attr
     def author_id(cls) -> Mapped[UUID]:
         return mapped_column(
             ForeignKey("authors.id", ondelete="CASCADE"),
-            index=True,
+            index=cls._author_id_index,
             nullable=cls._author_id_nullable,
             comment=cls._author_id_comment,
         )
@@ -84,13 +85,14 @@ class PostRelationMixin:
 
     _post_id_comment: str = "id поста"
     _post_id_nullable: bool = False
+    _post_id_index: bool = True
     _post_back_populates: str | None = None
 
     @declared_attr
     def post_id(cls) -> Mapped[UUID]:
         return mapped_column(
             ForeignKey("posts.id", ondelete="CASCADE"),
-            index=True,
+            index=cls._post_id_index,
             nullable=cls._post_id_nullable,
             comment=cls._post_id_comment,
         )
@@ -108,13 +110,14 @@ class TopicRelationMixin:
 
     _topic_id_comment: str = "id темы"
     _topic_id_nullable: bool = True
+    _topic_id_index: bool = True
     _topic_back_populates: str | None = None
 
     @declared_attr
     def topic_id(cls) -> Mapped[UUID]:
         return mapped_column(
             ForeignKey("topics.id", ondelete="SET NULL"),
-            index=True,
+            index=cls._topic_id_index,
             nullable=cls._topic_id_nullable,
             comment=cls._topic_id_comment,
         )
