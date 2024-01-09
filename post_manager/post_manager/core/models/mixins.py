@@ -44,7 +44,7 @@ class EditDateMixin:
 
 
 class AuthorRelationMixin:
-    """Примесь в модель для добавления данных о связанном авторе"""
+    """Примесь в модель для добавления данных о авторе"""
 
     _author_id_comment: str = "id автора"
     _author_id_nullable: bool = False
@@ -53,7 +53,7 @@ class AuthorRelationMixin:
     @declared_attr
     def author_id(cls) -> Mapped[UUID]:
         return mapped_column(
-            ForeignKey("authors.id"),
+            ForeignKey("authors.id", ondelete="CASCADE"),
             nullable=cls._author_id_nullable,
             comment=cls._author_id_comment,
         )
@@ -67,7 +67,7 @@ class AuthorRelationMixin:
 
 
 class PostRelationMixin:
-    """Примесь в модель для добавления данных о связанном посте"""
+    """Примесь в модель для добавления данных о посте"""
 
     _post_id_comment: str = "id поста"
     _post_id_nullable: bool = False
@@ -76,7 +76,7 @@ class PostRelationMixin:
     @declared_attr
     def post_id(cls) -> Mapped[UUID]:
         return mapped_column(
-            ForeignKey("posts.id"),
+            ForeignKey("posts.id", ondelete="CASCADE"),
             nullable=cls._post_id_nullable,
             comment=cls._post_id_comment,
         )
@@ -90,16 +90,16 @@ class PostRelationMixin:
 
 
 class TopicRelationMixin:
-    """Примесь в модель для добавления данных о связанной теме поста"""
+    """Примесь в модель для добавления данных о теме поста"""
 
     _topic_id_comment: str = "id темы"
-    _topic_id_nullable: bool = False
+    _topic_id_nullable: bool = True
     _topic_back_populates: str | None = None
 
     @declared_attr
     def topic_id(cls) -> Mapped[UUID]:
         return mapped_column(
-            ForeignKey("topics.id"),
+            ForeignKey("topics.id", ondelete="SET NULL"),
             nullable=cls._topic_id_nullable,
             comment=cls._topic_id_comment,
         )

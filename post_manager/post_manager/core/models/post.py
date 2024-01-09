@@ -34,6 +34,12 @@ class Post(
     )
 
     comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
-        back_populates="post"
+        back_populates="post",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )
-    likes: Mapped[list["Like"]] = relationship(back_populates="post")  # noqa: F821
+    likes: Mapped[list["Like"]] = relationship(  # noqa: F821
+        back_populates="post",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )

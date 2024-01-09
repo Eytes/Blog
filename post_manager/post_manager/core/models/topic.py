@@ -21,4 +21,8 @@ class Topic(
         comment="Название темы",
     )
 
-    posts: Mapped[list["Post"]] = relationship(back_populates="topic")  # noqa: F821
+    posts: Mapped[list["Post"]] = relationship(  # noqa: F821
+        back_populates="topic",
+        cascade="all, delete",
+        passive_deletes=True,
+    )
