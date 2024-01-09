@@ -30,7 +30,6 @@ def upgrade() -> None:
             nullable=False,
             comment="Дата создания",
         ),
-        sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(
             ["author_id"],
             ["authors.id"],
@@ -39,7 +38,10 @@ def upgrade() -> None:
             ["post_id"],
             ["posts.id"],
         ),
-        sa.PrimaryKeyConstraint("id"),
+        sa.PrimaryKeyConstraint(
+            "author_id",
+            "post_id",
+        ),
     )
     # ### end Alembic commands ###
 
