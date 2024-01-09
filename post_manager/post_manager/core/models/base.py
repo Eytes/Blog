@@ -1,13 +1,6 @@
-from uuid import (
-    UUID,
-    uuid4,
-)
-
 from sqlalchemy.orm import (
     DeclarativeBase,
     declared_attr,
-    mapped_column,
-    Mapped,
 )
 
 
@@ -17,9 +10,3 @@ class Base(DeclarativeBase):
     @declared_attr.directive
     def __tablename__(cls) -> str:
         return f"{cls.__name__.lower()}s"
-
-    id: Mapped[UUID] = mapped_column(
-        primary_key=True,
-        nullable=False,
-        default=uuid4,
-    )

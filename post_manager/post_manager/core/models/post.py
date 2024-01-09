@@ -10,11 +10,13 @@ from post_manager.core.models.mixins import (
     CreationDateMixin,
     EditDateMixin,
     TopicRelationMixin,
+    IdMixin,
 )
 
 
 class Post(
     Base,
+    IdMixin,
     AuthorRelationMixin,
     TopicRelationMixin,
     CreationDateMixin,

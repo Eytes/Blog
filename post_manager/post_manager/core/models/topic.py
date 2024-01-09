@@ -8,11 +8,13 @@ from post_manager.core.models.base import Base
 from post_manager.core.models.mixins import (
     CreationDateMixin,
     EditDateMixin,
+    IdMixin,
 )
 
 
 class Topic(
     Base,
+    IdMixin,
     CreationDateMixin,
     EditDateMixin,
 ):
