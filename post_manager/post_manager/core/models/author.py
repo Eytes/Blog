@@ -8,11 +8,13 @@ from post_manager.core.models.base import Base
 from post_manager.core.models.mixins import (
     CreationDateMixin,
     EditDateMixin,
+    IdMixin,
 )
 
 
 class Author(
     Base,
+    IdMixin,
     CreationDateMixin,
     EditDateMixin,
 ):
@@ -25,8 +27,18 @@ class Author(
         unique=True,
     )
 
-    posts: Mapped[list["Post"]] = relationship(back_populates="author")  # noqa: F821
-    comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
-        back_populates="author"
+    posts: Mapped[list["Post"]] = relationship(  # noqa: F821
+        back_populates="author",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )
-    likes: Mapped[list["Like"]] = relationship(back_populates="author")  # noqa: F821
+    comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
+        back_populates="author",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
+    likes: Mapped[list["Like"]] = relationship(  # noqa: F821
+        back_populates="author",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )

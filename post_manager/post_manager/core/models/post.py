@@ -10,11 +10,13 @@ from post_manager.core.models.mixins import (
     CreationDateMixin,
     EditDateMixin,
     TopicRelationMixin,
+    IdMixin,
 )
 
 
 class Post(
     Base,
+    IdMixin,
     AuthorRelationMixin,
     TopicRelationMixin,
     CreationDateMixin,
@@ -32,8 +34,15 @@ class Post(
         nullable=False,
         comment="Содержимое",
     )
+    # TODO: добавить кол-во лайков отдельным полем
 
     comments: Mapped[list["Comment"]] = relationship(  # noqa: F821
-        back_populates="post"
+        back_populates="post",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )
-    likes: Mapped[list["Like"]] = relationship(back_populates="post")  # noqa: F821
+    likes: Mapped[list["Like"]] = relationship(  # noqa: F821
+        back_populates="post",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
