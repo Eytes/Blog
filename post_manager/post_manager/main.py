@@ -14,7 +14,10 @@ async def lifespan(app: FastAPI):
     # после запуска приложения
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(
+    lifespan=lifespan,
+    title="Post manager",
+)
 app.include_router(router=router_v1, prefix=settings.api_v1_prefix)
 
 if __name__ == "__main__":

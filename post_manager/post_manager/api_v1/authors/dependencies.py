@@ -4,16 +4,19 @@ from uuid import UUID
 from fastapi import (
     Path,
     Depends,
+    Body,
 )
 from pydantic import EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors import crud
-from post_manager.api_v1.exeptions import (
-    NotFoundByIdException,
-    NotFoundByNameException,
-    NotFoundByEmailException,
+from post_manager.api_v1.authors.exceptions import (
+    AuthorNotFoundByIdHTTPException,
+    AuthorNotFoundByNameHTTPException,
+    AuthorNotFoundByEmailHTTPException,
+    AuthorAlreadyExistsHTTPException,
 )
+from post_manager.api_v1.authors.schemas import AuthorCreate
 from post_manager.core.models import (
     db_helper,
     Author,
@@ -22,38 +25,51 @@ from post_manager.core.models import (
 
 async def get_author_by_id(
     author_id: Annotated[UUID, Path],
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Author:
     author = await crud.get_by_id(
         author_id=author_id,
         session=session,
     )
     if author is None:
-        raise NotFoundByIdException(author_id)
+        raise AuthorNotFoundByIdHTTPException(author_id)
     return author
 
 
 async def get_author_by_name(
-    name: str,
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    name: Annotated[str, Path],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Author:
     author = await crud.get_by_name(
         session=session,
         name=name,
     )
     if author is None:
-        raise NotFoundByNameException(name)
+        raise AuthorNotFoundByNameHTTPException(name)
     return author
 
 
 async def get_author_by_email(
-    email: EmailStr,
-    session: AsyncSession = Depends(db_helper.scoped_session_dependency),
+    email: Annotated[EmailStr, Body],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Author:
     author = await crud.get_by_email(
         session=session,
         email=email,
     )
     if author is None:
-        raise NotFoundByEmailException(email)
+        raise AuthorNotFoundByEmailHTTPException(email)
     return author
+
+
+async def create_author(
+    author: Annotated[AuthorCreate, Body],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+) -> Author:
+    if await crud.get_by_name_or_email(
+        session=session,
+        email=author.email,
+        name=author.name,
+    ):
+        raise AuthorAlreadyExistsHTTPException
+    return await crud.create(session=session, author=author)

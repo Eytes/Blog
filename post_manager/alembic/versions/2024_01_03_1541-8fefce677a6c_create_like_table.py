@@ -7,9 +7,8 @@ Create Date: 2024-01-03 15:41:01.663900
 """
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision: str = "8fefce677a6c"
@@ -29,9 +28,8 @@ def upgrade() -> None:
             sa.DateTime(),
             server_default=sa.text("now()"),
             nullable=False,
-            comment="дата создания",
+            comment="Дата создания",
         ),
-        sa.Column("id", sa.Uuid(), nullable=False),
         sa.ForeignKeyConstraint(
             ["author_id"],
             ["authors.id"],
@@ -40,7 +38,10 @@ def upgrade() -> None:
             ["post_id"],
             ["posts.id"],
         ),
-        sa.PrimaryKeyConstraint("id"),
+        sa.PrimaryKeyConstraint(
+            "author_id",
+            "post_id",
+        ),
     )
     # ### end Alembic commands ###
 

@@ -1,3 +1,5 @@
+from sqlalchemy import PrimaryKeyConstraint
+
 from post_manager.core.models.base import Base
 from post_manager.core.models.mixins import (
     CreationDateMixin,
@@ -14,3 +16,12 @@ class Like(
 ):
     _author_back_populates = "likes"
     _post_back_populates = "likes"
+    _author_id_index = False
+
+    __table_args__ = (
+        PrimaryKeyConstraint(
+            "author_id",
+            "post_id",
+            name="like_unique",
+        ),
+    )

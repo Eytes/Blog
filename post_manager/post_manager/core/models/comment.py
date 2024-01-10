@@ -9,11 +9,13 @@ from post_manager.core.models.mixins import (
     EditDateMixin,
     AuthorRelationMixin,
     PostRelationMixin,
+    IdMixin,
 )
 
 
 class Comment(
     Base,
+    IdMixin,
     CreationDateMixin,
     EditDateMixin,
     AuthorRelationMixin,

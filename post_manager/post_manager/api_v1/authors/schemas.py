@@ -1,3 +1,4 @@
+import datetime
 from uuid import UUID
 
 from pydantic import (
@@ -16,17 +17,21 @@ class AuthorCreate(AuthorBase):
     pass
 
 
-class AuthorUpdate(AuthorCreate):
+class AuthorUpdate(AuthorBase):
     pass
 
 
-class AuthorUpdatePartial(AuthorCreate):
+class AuthorUpdatePartial(AuthorBase):
     name: str | None = None
     email: EmailStr | None = None
 
 
 class Author(AuthorBase):
+    """Схема данных с полной информацией об авторе"""
+
     model_config = ConfigDict(
         from_attributes=True,
     )  # конфиг для конвертации объектов sqlalchemy в pydantic
     id: UUID
+    creation_date: datetime.datetime
+    edit_date: datetime.datetime

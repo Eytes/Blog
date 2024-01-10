@@ -1,7 +1,7 @@
 import datetime
-from uuid import UUID
+from uuid import UUID, uuid4
 
-from sqlalchemy import func, ForeignKey
+from sqlalchemy import ForeignKey, text
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
@@ -10,17 +10,29 @@ from sqlalchemy.orm import (
 )
 
 
+class IdMixin:
+    """Примесь для добавления id"""
+
+    @declared_attr
+    def id(cls) -> Mapped[UUID]:
+        return mapped_column(
+            primary_key=True,
+            nullable=False,
+            default=uuid4,
+        )
+
+
 class CreationDateMixin:
     """Примесь в модель для добавления времени создания"""
 
-    _creation_date_comment: str = "дата создания"
+    _creation_date_comment: str = "Дата создания"
     _creation_date_nullable: bool = False
 
     @declared_attr
     def creation_date(cls) -> Mapped[datetime.datetime]:
         return mapped_column(
-            default=func.now(),
-            server_default=func.now(),
+            default=datetime.datetime.utcnow,
+            server_default=text("TIMEZONE('utc', now())"),
             nullable=cls._creation_date_nullable,
             comment=cls._creation_date_comment,
         )
@@ -29,31 +41,33 @@ class CreationDateMixin:
 class EditDateMixin:
     """Примесь в модель для добавления времени редактирования"""
 
-    _edit_date_comment: str = "дата последнего редактирования"
+    _edit_date_comment: str = "Дата последнего редактирования"
     _edit_date_nullable: bool = False
 
     @declared_attr
     def edit_date(cls) -> Mapped[datetime.datetime]:
         return mapped_column(
-            default=func.now(),
-            server_default=func.now(),
-            onupdate=func.now(),
+            default=datetime.datetime.utcnow,
+            server_default=text("TIMEZONE('utc', now())"),
+            onupdate=datetime.datetime.utcnow,
             nullable=cls._edit_date_nullable,
             comment=cls._edit_date_comment,
         )
 
 
 class AuthorRelationMixin:
-    """Примесь в модель для добавления данных о связанном авторе"""
+    """Примесь в модель для добавления данных об авторе"""
 
     _author_id_comment: str = "id автора"
     _author_id_nullable: bool = False
+    _author_id_index: bool = True
     _author_back_populates: str | None = None
 
     @declared_attr
     def author_id(cls) -> Mapped[UUID]:
         return mapped_column(
-            ForeignKey("authors.id"),
+            ForeignKey("authors.id", ondelete="CASCADE"),
+            index=cls._author_id_index,
             nullable=cls._author_id_nullable,
             comment=cls._author_id_comment,
         )
@@ -67,16 +81,18 @@ class AuthorRelationMixin:
 
 
 class PostRelationMixin:
-    """Примесь в модель для добавления данных о связанном посте"""
+    """Примесь в модель для добавления данных о посте"""
 
     _post_id_comment: str = "id поста"
     _post_id_nullable: bool = False
+    _post_id_index: bool = True
     _post_back_populates: str | None = None
 
     @declared_attr
     def post_id(cls) -> Mapped[UUID]:
         return mapped_column(
-            ForeignKey("posts.id"),
+            ForeignKey("posts.id", ondelete="CASCADE"),
+            index=cls._post_id_index,
             nullable=cls._post_id_nullable,
             comment=cls._post_id_comment,
         )
@@ -90,16 +106,18 @@ class PostRelationMixin:
 
 
 class TopicRelationMixin:
-    """Примесь в модель для добавления данных о связанной теме поста"""
+    """Примесь в модель для добавления данных о теме поста"""
 
     _topic_id_comment: str = "id темы"
-    _topic_id_nullable: bool = False
+    _topic_id_nullable: bool = True
+    _topic_id_index: bool = True
     _topic_back_populates: str | None = None
 
     @declared_attr
-    def topic_id(cls) -> Mapped[UUID]:
+    def topic_id(cls) -> Mapped[UUID | None]:
         return mapped_column(
-            ForeignKey("topics.id"),
+            ForeignKey("topics.id", ondelete="SET NULL"),
+            index=cls._topic_id_index,
             nullable=cls._topic_id_nullable,
             comment=cls._topic_id_comment,
         )
