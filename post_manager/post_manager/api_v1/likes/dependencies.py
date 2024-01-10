@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors.dependencies import get_author_by_id
 from post_manager.api_v1.likes import crud
+from post_manager.api_v1.likes.schemas import LikeCreate
 from post_manager.api_v1.posts.dependencies import get_post_by_id
 from post_manager.core.models import db_helper, Like
 
@@ -33,3 +34,12 @@ async def get_likes_amount_by_post_id(
         post_id=post_id,
         session=session,
     )
+
+
+async def create_like(
+    new_like: Annotated[LikeCreate, Body],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+) -> Like:
+    await get_author_by_id(session=session, author_id=new_like.author_id)
+    await get_post_by_id(session=session, post_id=new_like.post_id)
+    return await crud.create(session, new_like)
