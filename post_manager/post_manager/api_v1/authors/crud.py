@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from pydantic import EmailStr
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.authors.schemas import (
@@ -37,6 +37,21 @@ async def get_by_email(session: AsyncSession, email: EmailStr) -> Author | None:
     # result: Result = await session.execute(statement)
     # author: Author | None = result.scalar_one_or_none()
     author: Author | None = await session.scalar(statement)
+    return author
+
+
+async def get_by_name_or_email(
+    session: AsyncSession,
+    email: EmailStr | None = None,
+    name: str | None = None,
+) -> Author | None:
+    statement = select(Author).where(
+        or_(
+            Author.email == email,
+            Author.name == name,
+        )
+    )
+    author = await session.scalar(statement)
     return author
 
 
