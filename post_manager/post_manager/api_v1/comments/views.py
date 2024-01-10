@@ -1,13 +1,20 @@
 from typing import Annotated
-from uuid import UUID
 
-from fastapi import APIRouter, status, Depends, Path, Body
+from fastapi import APIRouter, status, Depends, Body
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from post_manager.api_v1 import utils
 from post_manager.api_v1.comments import crud
-from post_manager.api_v1.comments.dependencies import get_comment_by_id
-from post_manager.api_v1.comments.schemas import Comment, CommentCreate, CommentUpdate
+from post_manager.api_v1.comments.dependencies import (
+    get_comment_by_id,
+    get_comments_by_post_id,
+    get_comments_by_author_id,
+    create_comment,
+)
+from post_manager.api_v1.comments.schemas import (
+    Comment,
+    CommentUpdate,
+)
+from post_manager.api_v1.posts.schemas import Post
 from post_manager.core.models import db_helper
 
 router = APIRouter(tags=["Comments"])
@@ -29,11 +36,10 @@ async def get_by_id(comment: Annotated[Comment, Depends(get_comment_by_id)]):
     status_code=status.HTTP_200_OK,
 )
 async def get_by_post_id(
-    post_id: Annotated[UUID, Path],
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+    comments: Annotated[Post, Depends(get_comments_by_post_id)],
 ):
     """Получить комментарии поста по id поста"""
-    return await utils.get_comments_by_post_id(session=session, post_id=post_id)
+    return comments
 
 
 @router.get(
@@ -42,11 +48,10 @@ async def get_by_post_id(
     status_code=status.HTTP_200_OK,
 )
 async def get_by_author_id(
-    author_id: Annotated[UUID, Path],
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+    comments: Annotated[Post, Depends(get_comments_by_author_id)],
 ):
     """Получить комментарии автора по id автора"""
-    return await utils.get_comments_by_author_id(session=session, author_id=author_id)
+    return comments
 
 
 @router.post(
@@ -55,20 +60,19 @@ async def get_by_author_id(
     status_code=status.HTTP_201_CREATED,
 )
 async def create(
-    comment: Annotated[CommentCreate, Body],
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+    comment: Annotated[Comment, Depends(create_comment)],
 ):
     """Создать комментарий для поста"""
-    return await crud.create(session=session, comment=comment)
+    return comment
 
 
 @router.patch(
-    "/{comment_id}",
+    "/{comment_id}/",
     response_model=Comment,
 )
 async def update(
-    comment: Annotated[Comment, Depends(get_comment_by_id)],
     comment_update: Annotated[CommentUpdate, Body],
+    comment: Annotated[Comment, Depends(get_comment_by_id)],
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ):
     """Обновить содержимое комментария"""
@@ -76,4 +80,17 @@ async def update(
         session=session,
         comment=comment,
         comment_update=comment_update,
+        partial=True,
     )
+
+
+@router.delete(
+    "/{comment_id}/",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def delete(
+    comment: Annotated[Comment, Depends(get_comment_by_id)],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+):
+    """Удаление комментария"""
+    await crud.delete(session=session, comment=comment)
