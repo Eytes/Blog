@@ -1,7 +1,7 @@
 import datetime
 from uuid import UUID, uuid4
 
-from sqlalchemy import func, ForeignKey
+from sqlalchemy import ForeignKey, text
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
@@ -31,8 +31,8 @@ class CreationDateMixin:
     @declared_attr
     def creation_date(cls) -> Mapped[datetime.datetime]:
         return mapped_column(
-            default=func.now(),
-            server_default=func.now(),
+            default=datetime.datetime.utcnow,
+            server_default=text("TIMEZONE('utc', now())"),
             nullable=cls._creation_date_nullable,
             comment=cls._creation_date_comment,
         )
@@ -48,15 +48,15 @@ class EditDateMixin:
     def edit_date(cls) -> Mapped[datetime.datetime]:
         return mapped_column(
             default=datetime.datetime.utcnow,
-            server_default=func.now(),
-            onupdate=func.now(),
+            server_default=text("TIMEZONE('utc', now())"),
+            onupdate=datetime.datetime.utcnow,
             nullable=cls._edit_date_nullable,
             comment=cls._edit_date_comment,
         )
 
 
 class AuthorRelationMixin:
-    """Примесь в модель для добавления данных о авторе"""
+    """Примесь в модель для добавления данных об авторе"""
 
     _author_id_comment: str = "id автора"
     _author_id_nullable: bool = False
@@ -114,7 +114,7 @@ class TopicRelationMixin:
     _topic_back_populates: str | None = None
 
     @declared_attr
-    def topic_id(cls) -> Mapped[UUID]:
+    def topic_id(cls) -> Mapped[UUID | None]:
         return mapped_column(
             ForeignKey("topics.id", ondelete="SET NULL"),
             index=cls._topic_id_index,
