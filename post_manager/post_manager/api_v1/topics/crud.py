@@ -23,6 +23,13 @@ async def get_by_id(session: AsyncSession, topic_id: UUID) -> Topic | None:
     return await session.get(Topic, topic_id)
 
 
+async def get_by_name(session: AsyncSession, name: str) -> Topic | None:
+    """Получить тематику по названию"""
+    statement = select(Topic).where(Topic.name == name)
+    topic = await session.scalar(statement)
+    return topic
+
+
 async def create(
     session: AsyncSession,
     topic: TopicCreate,
