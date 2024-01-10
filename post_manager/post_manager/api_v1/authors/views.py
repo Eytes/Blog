@@ -1,5 +1,4 @@
 from typing import Annotated
-from uuid import UUID
 
 from fastapi import (
     APIRouter,
@@ -8,20 +7,18 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from post_manager.api_v1 import utils
 from post_manager.api_v1.authors import crud
 from post_manager.api_v1.authors.dependencies import (
     get_author_by_id,
     get_author_by_name,
     get_author_by_email,
+    create_author,
 )
 from post_manager.api_v1.authors.schemas import (
-    AuthorCreate,
     Author,
     AuthorUpdate,
     AuthorUpdatePartial,
 )
-from post_manager.api_v1.posts.schemas import Post
 from post_manager.core.models import db_helper
 
 router = APIRouter(tags=["Authors"])
@@ -61,7 +58,7 @@ async def get_by_name(author: Annotated[Author, Depends(get_author_by_name)]):
 
 
 @router.get(
-    "/email/{email}/",
+    "/email/",
     response_model=Author,
     status_code=status.HTTP_200_OK,
 )
@@ -70,53 +67,19 @@ async def get_by_email(author: Annotated[Author, Depends(get_author_by_email)]):
     return author
 
 
-@router.get(
-    "/post/{post_id}",
-    response_model=Author,
-    status_code=status.HTTP_200_OK,
-)
-async def get_author_by_post_id(
-    post_id: UUID,
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
-):
-    """Получить автора по id поста"""
-    return await utils.get_author_by_post_id(
-        session=session,
-        post_id=post_id,
-    )
-
-
-@router.get(
-    "/posts/{author_id}/",
-    response_model=list[Post],
-    status_code=status.HTTP_200_OK,
-)
-async def get_posts_by_author_id(
-    author_id: UUID,
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
-):
-    """Получить посты автора по id автора"""
-    posts = await utils.get_posts_by_author_id(
-        session=session,
-        author_id=author_id,
-    )
-    return posts
-
-
 @router.post(
-    "/create/",
+    "/",
     response_model=Author,
     status_code=status.HTTP_201_CREATED,
 )
 async def create(
-    new_author: AuthorCreate,
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+    author: Annotated[Author, Depends(create_author)],
 ):
     """Создание автора"""
-    return await crud.create(session=session, author=new_author)
+    return author
 
 
-@router.put("/update/{author_id}/")
+@router.put("/{author_id}/")
 async def update(
     author_update: AuthorUpdate,
     author: Annotated[Author, Depends(get_author_by_id)],
@@ -130,7 +93,7 @@ async def update(
     )
 
 
-@router.patch("/update/{author_id}/")
+@router.patch("/{author_id}/")
 async def update_partial(
     author_update: AuthorUpdatePartial,
     author: Annotated[Author, Depends(get_author_by_id)],
