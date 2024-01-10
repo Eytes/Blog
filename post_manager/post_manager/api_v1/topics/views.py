@@ -1,5 +1,4 @@
 from typing import Annotated
-from uuid import UUID
 
 from fastapi import (
     APIRouter,
@@ -8,11 +7,9 @@ from fastapi import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from post_manager.api_v1 import utils
 from post_manager.api_v1.topics import crud
-from post_manager.api_v1.topics.dependencies import get_topic_by_id
+from post_manager.api_v1.topics.dependencies import get_topic_by_id, create_topic
 from post_manager.api_v1.topics.schemas import (
-    TopicCreate,
     TopicUpdate,
     TopicUpdatePartial,
     Topic,
@@ -44,29 +41,16 @@ async def get_by_id(topic: Annotated[Topic, Depends(get_topic_by_id)]):
     return topic
 
 
-@router.get(
-    "/post/{post_id}/",
+@router.post(
+    "/create/",
     response_model=Topic,
-    status_code=status.HTTP_200_OK,
+    status_code=status.HTTP_201_CREATED,
 )
-async def get_by_post_id(
-    post_id: UUID,
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
-):
-    """Получить тематику поста по id поста"""
-    return await utils.get_topic_by_post_id(
-        post_id=post_id,
-        session=session,
-    )
-
-
-@router.post("/create/", response_model=Topic, status_code=status.HTTP_201_CREATED)
 async def create(
-    topic: TopicCreate,
-    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+    topic: Annotated[Topic, Depends(create_topic)],
 ):
     """Создание тематики постов"""
-    return await crud.create(session=session, topic=topic)
+    return topic
 
 
 @router.put(

@@ -20,3 +20,7 @@ class TopicAlreadyExistsHTTPException(AlreadyExistsHTTPException):
 
 class TopicNotFoundByIdHTTPException(__TopicNotFoundHTTPException):
     pass
+
+
+class TopicNotFoundByNameHTTPException(__TopicNotFoundHTTPException):
+    pass
