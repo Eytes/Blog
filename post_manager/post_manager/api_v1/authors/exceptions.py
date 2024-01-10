@@ -17,7 +17,7 @@ class __AuthorNotFoundHTTPException(NotFoundHTTPException):
 class AuthorAlreadyExistsHTTPException(AlreadyExistsHTTPException):
     def __init__(self):
         super().__init__()
-        self.detail = f"Name or email already exists!"
+        self.detail = "Name or email already exists!"
 
 
 class AuthorNotFoundByIdHTTPException(__AuthorNotFoundHTTPException):

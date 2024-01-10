@@ -15,7 +15,7 @@ class __TopicNotFoundHTTPException(NotFoundHTTPException):
 class TopicAlreadyExistsHTTPException(AlreadyExistsHTTPException):
     def __init__(self):
         super().__init__()
-        self.detail = f"Topic already exists!"
+        self.detail = "Topic already exists!"
 
 
 class TopicNotFoundByIdHTTPException(__TopicNotFoundHTTPException):
