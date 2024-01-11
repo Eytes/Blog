@@ -42,7 +42,7 @@ async def get_by_id(topic: Annotated[Topic, Depends(get_topic_by_id)]):
 
 
 @router.post(
-    "/create/",
+    "/",
     response_model=Topic,
     status_code=status.HTTP_201_CREATED,
 )
@@ -54,7 +54,7 @@ async def create(
 
 
 @router.put(
-    "/update/{topic_id}",
+    "/{topic_id}/",
     response_model=Topic,
 )
 async def update(
@@ -71,7 +71,7 @@ async def update(
 
 
 @router.patch(
-    "/update/{topic_id}",
+    "/{topic_id}/",
     response_model=Topic,
 )
 async def update_partial(
