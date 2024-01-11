@@ -55,7 +55,7 @@ async def get_by_author_id(
 
 
 @router.post(
-    "/create/",
+    "/",
     response_model=Comment,
     status_code=status.HTTP_201_CREATED,
 )

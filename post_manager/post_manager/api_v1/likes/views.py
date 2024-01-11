@@ -31,7 +31,7 @@ async def get_likes_amount_by_post_id(
 
 
 @router.post(
-    "/create",
+    "/",
     response_model=Like,
     status_code=status.HTTP_201_CREATED,
 )
@@ -41,7 +41,7 @@ async def create(like: Annotated[Like, Depends(create_like)]):
 
 
 @router.delete(
-    "/delete",
+    "/",
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete(

@@ -48,7 +48,7 @@ async def get_by_id(author: Annotated[Author, Depends(get_author_by_id)]):
 
 
 @router.get(
-    "/name/{name}/",
+    "/name/",
     response_model=Author,
     status_code=status.HTTP_200_OK,
 )

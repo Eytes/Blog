@@ -86,7 +86,7 @@ async def get(
 
 
 @router.post(
-    "/create/",
+    "/",
     response_model=Post,
     status_code=status.HTTP_201_CREATED,
 )
@@ -98,7 +98,7 @@ async def create(
 
 
 @router.put(
-    "/update/{post_id}",
+    "/{post_id}/",
     response_model=Post,
 )
 async def update(
@@ -115,7 +115,7 @@ async def update(
 
 
 @router.patch(
-    "/update/{post_id}",
+    "/{post_id}/",
     response_model=Post,
 )
 async def update_partial(
