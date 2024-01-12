@@ -84,7 +84,8 @@
 3. Создайте файлы `.db-env` и `.post_manager-env` с вашими значениями
 4. Запустите команду докера: `docker-compose ud -d --build`
 5. Запустите миграции: `docker-compose exec post_manager alembic upgrade head`
-6. Откройте в браузере ссылку http://localhost:8080/docs. Должен открыться swagger для работы с api
+6. Откройте в браузере ссылку http://localhost:8501. Откроется web приложение для взаимодействия
+7. Так же есть swagger http://localhost:8080/docs
 
 ### Содержимое `.db-env`
 
