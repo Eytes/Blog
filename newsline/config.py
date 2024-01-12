@@ -1,0 +1,5 @@
+prefix = "http://post_manager:80/api/v1"
+# prefix = "http://localhost:8080/api/v1"
+post_prefix = prefix + "/posts"
+topic_prefix = prefix + "/topics"
+author_prefix = prefix + "/authors"
