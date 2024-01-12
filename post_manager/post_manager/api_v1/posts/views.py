@@ -21,6 +21,7 @@ from post_manager.api_v1.posts.schemas import (
     PostUpdatePartial,
     PostUpdate,
 )
+from post_manager.api_v1.topics.dependencies import get_topic_by_name
 from post_manager.api_v1.topics.schemas import Topic
 from post_manager.core.models import db_helper
 
@@ -37,6 +38,18 @@ async def get_posts_by_author_id(
 ):
     """Получить посты автора по id автора"""
     return posts
+
+
+@router.get(
+    "/topic/{topic_name}/",
+    response_model=list[Post],
+    status_code=status.HTTP_200_OK,
+)
+async def get_posts_by_topic_name(
+    topic: Annotated[Topic, Depends(get_topic_by_name)],
+    session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
+):
+    return await crud.get_by_topic_id(session=session, topic_id=topic.id)
 
 
 @router.get(
@@ -86,7 +99,7 @@ async def get(
 
 
 @router.post(
-    "/create/",
+    "/",
     response_model=Post,
     status_code=status.HTTP_201_CREATED,
 )
@@ -98,7 +111,7 @@ async def create(
 
 
 @router.put(
-    "/update/{post_id}",
+    "/{post_id}/",
     response_model=Post,
 )
 async def update(
@@ -115,7 +128,7 @@ async def update(
 
 
 @router.patch(
-    "/update/{post_id}",
+    "/{post_id}/",
     response_model=Post,
 )
 async def update_partial(

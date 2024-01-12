@@ -37,7 +37,7 @@ async def get_author_by_id(
 
 
 async def get_author_by_name(
-    name: Annotated[str, Path],
+    name: Annotated[str, Body],
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Author:
     author = await crud.get_by_name(
