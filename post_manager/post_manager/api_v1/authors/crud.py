@@ -14,7 +14,7 @@ from post_manager.core.models import Author
 
 async def get(session: AsyncSession) -> list[Author]:
     # TODO: добавить offset (каждые 10 пользователей, например)
-    statement = select(Author).order_by(Author.id)
+    statement = select(Author).order_by(Author.creation_date)
     authors = await session.execute(statement)
     return list(authors.scalars())
 
