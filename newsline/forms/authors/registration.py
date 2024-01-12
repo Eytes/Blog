@@ -9,7 +9,7 @@ class AuthorRegistrationForm:
     def __init__(self):
         self.__form = st.form("registration")
         with self.__form:
-            st.title("Registration")
+            st.title("Registration new author")
 
             if "nickname" not in st.session_state:
                 st.session_state.nickname = ""

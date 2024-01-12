@@ -18,7 +18,7 @@ async def get_by_id(session: AsyncSession, comment_id: UUID) -> Comment | None:
 async def get_by_post_id(session: AsyncSession, post_id: UUID) -> list[Comment]:
     """Получить комментарии по id поста"""
     # TODO: добавить offset
-    statement = select(Comment).where(Comment.post_id == post_id)
+    statement = select(Comment).where(Comment.post_id == post_id).order_by(Comment.creation_date)
     return list(await session.scalars(statement))
 
 
