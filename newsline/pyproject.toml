@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "newsline"
+version = "0.1.0"
+description = ""
+authors = ["Eytes <yura.shamanov2000@bk.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+streamlit = "^1.29.0"
+requests = "^2.31.0"
+pydantic = {extras = ["email"], version = "^2.5.3"}
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

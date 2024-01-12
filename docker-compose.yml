@@ -27,26 +27,44 @@ services:
     build:
       context: post_manager
       dockerfile: Dockerfile
-    develop:
-      watch:
-        -
-          action: rebuild
-          path: ./post_manager/pyproject.toml
-        -
-          action: rebuild
-          path: ./post_manager/Dockerfile
-        -
-          action: sync
-          path: ./post_manager/post_manager
-          target: /app/post_manager
     ports:
       - "8080:80"
     networks:
       - backtier
+      - fronttier
+
+  newsline:
+    depends_on:
+      - post_manager
+    container_name: newsline
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8501/_stcore/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: always
+    build:
+      context: newsline
+      dockerfile: Dockerfile
+    develop:
+      watch:
+        - action: rebuild
+          path: ./newsline/pyproject.toml
+        - action: rebuild
+          path: ./newsline/Dockerfile
+        - action: sync
+          path: ./newsline
+          target: /app
+    ports:
+      - "8501:8501"
+    networks:
+      - fronttier
 
 volumes:
   db-data:
 
 networks:
   backtier:
+    driver: bridge
+  fronttier:
     driver: bridge

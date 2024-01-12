@@ -62,6 +62,15 @@ async def get_by_author_id(
     return list(posts)
 
 
+async def get_by_topic_id(
+        topic_id: UUID,
+        session: AsyncSession,
+) -> list[Post]:
+    """Получить все посты с определенной тематикой"""
+    statement = select(Post).where(Post.topic_id == topic_id)
+    return list(await session.scalars(statement))
+
+
 async def get_author_by_post_id(
     post_id: UUID,
     session: AsyncSession,

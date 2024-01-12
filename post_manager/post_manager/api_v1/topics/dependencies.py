@@ -38,6 +38,8 @@ async def create_topic(
     topic: Annotated[TopicCreate, Body],
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Topic:
-    if await get_topic_by_name(session=session, topic_name=topic.name):
+    try:
+        await get_topic_by_name(session=session, topic_name=topic.name)
         raise TopicAlreadyExistsHTTPException
-    return await crud.create(session=session, topic=topic)
+    except TopicNotFoundByNameHTTPException:
+        return await crud.create(session=session, topic=topic)
