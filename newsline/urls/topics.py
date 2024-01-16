@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import requests
 import streamlit as st
 
@@ -29,3 +31,8 @@ def create_topic(new_topic: TopicCreate):
             return "Success"
         case _:
             return response.json().get("detail")
+
+
+@st.cache_data(ttl=3600)
+def get_topic_id_by_name(topic_name: str) -> UUID:
+    pass
