@@ -17,7 +17,7 @@ def create_author(new_author: AuthorCreate) -> str:
             return response.json().get("detail")
 
 
-@st.cache_data(ttl=120)
+@st.cache_data(ttl=10)  # Обновление данных в кеше каждые 10 сек
 def get_authors() -> list[Author]:
     response = requests.get(author_prefix)
     return list(map(lambda author: Author(**author), response.json()))

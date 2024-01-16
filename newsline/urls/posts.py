@@ -9,9 +9,11 @@ from schemas.posts import Post
 
 
 @st.cache_data(ttl=60)
-def get_posts_by_topic_name(topic_name: str) -> list[Post]:
-    posts_raw = requests.get(post_prefix + "/topic/" + topic_name)
-    return list(map(lambda post_dict: Post(**post_dict), posts_raw.json()))
+def get_posts_by_topic_name(topic_name: str) -> list[Post | None]:
+    if topic_name:
+        posts_raw = requests.get(post_prefix + "/topic/" + topic_name)
+        return list(map(lambda post_dict: Post(**post_dict), posts_raw.json()))
+    return []
 
 
 @st.cache_data
