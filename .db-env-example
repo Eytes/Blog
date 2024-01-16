@@ -1,0 +1,4 @@
+POSTGRES_USER=имя-пользователя
+POSTGRES_PASSWORD=пароль
+POSTGRES_DB=название-БД
+PGDATA=/var/lib/postgresql/data/pgdata
