@@ -1,0 +1,4 @@
+POSTGRES_USER=имя-пользователя
+POSTGRES_PASSWORD=пароль
+POSTGRES_HOST=название-контейнера-с-БД
+POSTGRES_DB=название-БД
