@@ -8,7 +8,11 @@ from fastapi import (
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from post_manager.api_v1.topics import crud
-from post_manager.api_v1.topics.dependencies import get_topic_by_id, create_topic
+from post_manager.api_v1.topics.dependencies import (
+    get_topic_by_id,
+    create_topic,
+    get_topic_by_name,
+)
 from post_manager.api_v1.topics.schemas import (
     TopicUpdate,
     TopicUpdatePartial,
@@ -38,6 +42,16 @@ async def get(
 )
 async def get_by_id(topic: Annotated[Topic, Depends(get_topic_by_id)]):
     """Получить тематику по id"""
+    return topic
+
+
+@router.get(
+    "/name/{topic_name}/",
+    response_model=Topic,
+    status_code=status.HTTP_200_OK,
+)
+async def get_by_name(topic: Annotated[Topic, Depends(get_topic_by_name)]):
+    """Получить данные о тематике по названию"""
     return topic
 
 

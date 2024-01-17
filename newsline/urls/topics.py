@@ -1,5 +1,3 @@
-from uuid import UUID
-
 import requests
 import streamlit as st
 
@@ -34,5 +32,11 @@ def create_topic(new_topic: TopicCreate):
 
 
 @st.cache_data(ttl=3600)
-def get_topic_id_by_name(topic_name: str) -> UUID:
-    pass
+def get_topic_id_by_name(topic_name: str) -> str | None:
+    response = requests.get(topic_prefix + "/name/" + topic_name)
+    match response.status_code:
+        case 200:
+            topic = response.json()
+            return str(topic.get("id"))
+        case 404:
+            st.toast("Error receiving topic data!")
