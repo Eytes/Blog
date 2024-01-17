@@ -25,10 +25,10 @@ async def get_topic_by_id(
 
 
 async def get_topic_by_name(
-    topic_name: str,
+    topic_name: Annotated[str, Path],
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Topic:
-    topic = await crud.get_by_name(session=session, name=topic_name)
+    topic = await crud.get_by_name(session=session, name=topic_name.capitalize())
     if topic is None:
         raise TopicNotFoundByNameHTTPException(topic_name)
     return topic
@@ -38,6 +38,7 @@ async def create_topic(
     topic: Annotated[TopicCreate, Body],
     session: Annotated[AsyncSession, Depends(db_helper.scoped_session_dependency)],
 ) -> Topic:
+    topic.name = topic.name.capitalize()
     try:
         await get_topic_by_name(session=session, topic_name=topic.name)
         raise TopicAlreadyExistsHTTPException
