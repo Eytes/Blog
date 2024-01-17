@@ -14,6 +14,7 @@ with authors_tab:
         {
             "name": [author.name for author in authors],
             "email": [author.email for author in authors],
+            "id": [author.id for author in authors],
         }
     )
     st.dataframe(
@@ -21,7 +22,6 @@ with authors_tab:
         hide_index=True,
         use_container_width=True,
     )
-
 
 with registration_tab:
     AuthorRegistrationForm()
