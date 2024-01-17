@@ -48,17 +48,17 @@ class PostCreateForm:
                     content=content,
                     topic_id=get_topic_id_by_name(topic_name),
                 )
-                return self._correct_topic_write(new_post)
+                return self._correct_post_write(new_post)
             except ValidationError:
-                return self._incorrect_topic_write()
-        return self._empty_topic_left_write()
+                return self._incorrect_post_write()
+        return self._empty_post_left_write()
 
-    def _correct_topic_write(self, new_post):
+    def _correct_post_write(self, new_post):
         create_result = create_post(new_post)
         self.__form.write(create_result)
 
-    def _incorrect_topic_write(self):
+    def _incorrect_post_write(self):
         self.__form.error("Incorrect data")
 
-    def _empty_topic_left_write(self):
+    def _empty_post_left_write(self):
         self.__form.error("There are empty fields left")
